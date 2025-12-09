@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="76x76" href="/template/build/assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="/template/build/assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
+    <title>Admin Dashboard</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -41,9 +41,7 @@
       <div class="h-19">
         <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
         <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700" href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
-          <img src="/template/build/assets/img/logo-ct-dark.png" class="inline h-full max-w-full transition-all duration-200 dark:hidden ease-nav-brand max-h-8" alt="main_logo" />
-          <img src="/template/build/assets/img/logo-ct.png" class="hidden h-full max-w-full transition-all duration-200 dark:inline ease-nav-brand max-h-8" alt="main_logo" />
-          <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Argon Dashboard 2</span>
+          <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Admin Dashboard</span>
         </a>
       </div>
 
@@ -65,7 +63,7 @@
               <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-calendar-grid-58"></i>
               </div>
-              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Tables</span>
+              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">User</span>
             </a>
           </li>
 
@@ -292,11 +290,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Money</p>
-                      <h5 class="mb-2 font-bold dark:text-white">$53,000</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Categories</p>
+                      <h5 class="mb-2 font-bold dark:text-white">3 Cat</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
-                        since yesterday
+                        <span class="text-sm font-bold leading-normal text-blue-500">Kelola Categories</span>
                       </p>
                     </div>
                   </div>
@@ -317,11 +314,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Users</p>
-                      <h5 class="mb-2 font-bold dark:text-white">2,300</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Product</p>
+                      <h5 class="mb-2 font-bold dark:text-white">4 Items</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+3%</span>
-                        since last week
+                        <span class="text-sm font-bold leading-normal text-blue-500">Kelola Produk</span>
                       </p>
                     </div>
                   </div>
@@ -342,11 +338,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">New Clients</p>
-                      <h5 class="mb-2 font-bold dark:text-white">+3,462</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Transaction</p>
+                      <h5 class="mb-2 font-bold dark:text-white">5 Trx</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-red-600">-2%</span>
-                        since last quarter
+                        <span class="text-sm font-bold leading-normal text-blue-500">Kelola Transaksi</span>
                       </p>
                     </div>
                   </div>
@@ -367,11 +362,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Sales</p>
-                      <h5 class="mb-2 font-bold dark:text-white">$103,430</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Admin</p>
+                      <h5 class="mb-2 font-bold dark:text-white">5 People</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+5%</span>
-                        than last month
+                        <span class="text-sm font-bold leading-normal text-blue-500">Kelola Admin</span>
                       </p>
                     </div>
                   </div>
