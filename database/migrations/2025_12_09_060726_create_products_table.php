@@ -14,7 +14,7 @@ return new class extends Migration
         // Tabel kategori produk
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->index();
+            $table->string('category_name')->index();
             $table->timestamps();
         });
 
