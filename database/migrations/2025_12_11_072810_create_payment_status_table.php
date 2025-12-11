@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_status', function (Blueprint $table) {
-            $table->id('id_order_status');
-            $table->string('order_status_name');
+        Schema::create('payment_statuses', function (Blueprint $table) {
+            $table->id('id_payment_status');
+            $table->string('status_name');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_status');
+        Schema::dropIfExists('payment_statuses');
     }
 };

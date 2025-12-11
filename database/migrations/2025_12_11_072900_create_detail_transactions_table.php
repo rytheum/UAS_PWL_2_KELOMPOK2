@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('detail_transactions', function (Blueprint $table) {
             $table->id('id_detail');
 
-            $table->unsignedBigInteger('id_transaction');
-            $table->unsignedBigInteger('id_product');
+            $table->foreignId('transaction_id')
+                  ->constrained('transactions', 'id_transaction')
+                  ->cascadeOnDelete();
+
+            $table->foreignId('product_id')
+                  ->constrained('products', 'id')
+                  ->cascadeOnDelete();
 
             $table->integer('items_amount');
             $table->decimal('total_price', 12, 2);
-
-            $table->foreign('id_transaction')->references('id_transaction')->on('transactions')->cascadeOnDelete();
-            $table->foreign('id_product')->references('id_product')->on('products')->cascadeOnDelete();
 
             $table->timestamps();
         });
