@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Landing Page
@@ -72,7 +72,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         return view('admin.dashboard');
 
     })->name('dashboard');
-
+    Route::resource('user', UserController::class);
     Route::resource('products', ProductController::class);
     Route::resource('categories', ProductCategoryController::class);
     Route::resource('transactions', TransactionController::class);
