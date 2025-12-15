@@ -298,7 +298,7 @@
                                     </ul>
                                 </li><!--/.dropdown-->
                                 <li class="nav-login">
-                                    <a href=""><span class="lnr lnr-enter-down"></span></a>
+                                    <a href="/auth"><span class="lnr lnr-enter-down"></span></a>
                                 </li>
                                 <li class="nav-user">
                                     <a href="#"><span class="lnr lnr-user"></span></a>
