@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use Illuminate\Http\Request;
-=======
 
 use App\Models\Transaction;
 use App\Models\DetailTransaction;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
 
 class TransactionController extends Controller
 {
@@ -20,11 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        //
-=======
         return Transaction::with('details')->get();
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -32,11 +24,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        //
-=======
         return view('transactions.create');
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -44,9 +32,6 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        //
-=======
          DB::transaction(function () use ($request) {
             // 1. Buat transaksi
             $transaction = Transaction::create([
@@ -77,7 +62,6 @@ class TransactionController extends Controller
         return response()->json([
             'message' => 'Transaksi berhasil dibuat'
         ]);
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -85,13 +69,9 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-<<<<<<< HEAD
-        //
-=======
         return Transaction::with('details')
             ->where('id_transaction', $id)
             ->firstOrFail();
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -99,11 +79,7 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
-<<<<<<< HEAD
-        //
-=======
         return Transaction::findOrFail($id);
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -111,9 +87,6 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-<<<<<<< HEAD
-        //
-=======
         $transaction = Transaction::findOrFail($id);
 
         $transaction->update([
@@ -124,7 +97,6 @@ class TransactionController extends Controller
         return response()->json([
             'message' => 'Status transaksi berhasil diperbarui'
         ]);
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 
     /**
@@ -132,14 +104,10 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-<<<<<<< HEAD
-        //
-=======
         Transaction::where('id_transaction', $id)->delete();
 
         return response()->json([
             'message' => 'Transaksi berhasil dihapus'
         ]);
->>>>>>> 98377ea6d5880c9451720b7f055f5eaaee7b5120
     }
 }
