@@ -1,92 +1,93 @@
 @extends('layouts.main')
 
-@section('title', 'Admin - User Tables')
-@section('page-title', 'TABLES')
-
 @section('content')
 
-    {{-- Notifikasi Sukses/Error (Opsional) --}}
+    <h2 style="margin-bottom:20px;">User Management</h2>
+
+    {{-- Alert --}}
     @if (session('success'))
-        <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+        <div style="background:#d4edda;color:#155724;padding:10px 15px;border-radius:5px;margin-bottom:15px;">
             {{ session('success') }}
         </div>
     @endif
-    @if (session('error'))
-        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-            {{ session('error') }}
+
+    <div style="background:white;padding:20px;border-radius:20px;">
+
+        <div style="margin-bottom:15px;text-align:right;">
+            <a href="{{ route('admin.user.create') }}"
+                style="background:#28a745;color:white;padding:8px 14px;border-radius:6px;text-decoration:none;">
+                + Tambah User
+            </a>
         </div>
-    @endif
 
-    {{-- Tombol Tambah Admin --}}
-    <a href="{{ route('admin.user.create') }}"
-        style="background: #28a745; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-bottom: 20px;">
-        <i class="fa fa-plus"></i> Tambah Admin
-    </a>
-
-    {{-- Kotak Tabel --}}
-    <div class="box" style="background: white; padding: 20px; border-radius: 20px;">
-
-        {{-- Tabel --}}
-        <table style="width: 100%; border-collapse: collapse; color: #333;">
-            <thead style="background-color: #f8f9fa;">
+        <table style="width:100%;border-collapse:collapse;color:#333;">
+            <thead style="background:#f8f9fa;">
                 <tr>
-                    <th style="padding: 12px; text-align: left;">Id</th>
-                    <th style="padding: 12px; text-align: left;">User</th>
-                    <th style="padding: 12px; text-align: left;">Role</th>
-                    <th style="padding: 12px; text-align: center;">Action</th>
+                    <th style="padding:12px;">No</th>
+                    <th style="padding:12px;text-align:left;">Nama</th>
+                    <th style="padding:12px;text-align:left;">Email</th>
+                    <th style="padding:12px;">Role</th>
+                    <th style="padding:12px;text-align:center;">Action</th>
                 </tr>
             </thead>
+
             <tbody>
-
-                {{-- Cek apakah ada data user --}}
                 @forelse ($users as $user)
-                    <tr style="border-top: 1px solid #dee2e6;">
-                        {{-- ID (Menggunakan $loop->iteration untuk penomoran 01, 02, ...) --}}
-                        <td style="padding: 12px;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</td>
+                    <tr style="border-top:1px solid #dee2e6;">
+                        <td style="padding:12px;">
+                            {{ $users->firstItem() + $loop->index }}
+                        </td>
 
-                        {{-- Nama User --}}
-                        <td style="padding: 12px;">{{ $user->name }}</td>
+                        <td style="padding:12px;">{{ $user->name }}</td>
+                        <td style="padding:12px;">{{ $user->email }}</td>
 
-                        {{-- Role (Dikonversi ke Huruf Kapital) --}}
-                        <td style="padding: 12px;">{{ ucfirst($user->role) }}</td>
+                        <td style="padding:12px;">
+                            <span style="
+                                    padding:4px 10px;
+                                    border-radius:12px;
+                                    background: {{ $user->role === 'admin' ? '#e3f2fd' : '#e8f5e9' }};
+                                    color: {{ $user->role === 'admin' ? '#0d47a1' : '#1b5e20' }};
+                                ">
+                                {{ ucfirst($user->role) }}
+                            </span>
+                        </td>
 
-                        {{-- Action Buttons --}}
-                        <td style="padding: 12px; text-align: center;">
-
-                            {{-- View/Show (Tanda Mata) --}}
-                            <a href=""
-                                style="background: #007bff; color: white; padding: 6px 10px; border-radius: 5px; text-decoration: none; margin-right: 5px;">
-                                <i class="fa fa-eye"></i>
+                        <td style="padding:12px;text-align:center;">
+                            <a href="{{ route('admin.user.show', $user) }}"
+                                style="background:#007bff;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;">
+                                View
                             </a>
 
-                            {{-- Edit (Tanda Pensil) --}}
-                            <a href=""
-                                style="background: #ffc107; color: #333; padding: 6px 10px; border-radius: 5px; text-decoration: none; margin-right: 5px;">
-                                <i class="fa fa-pencil-alt"></i>
+                            <a href="{{ route('admin.user.edit', $user) }}"
+                                style="background:#ffc107;color:#333;padding:6px 10px;border-radius:5px;text-decoration:none;margin:0 5px;">
+                                Edit
                             </a>
 
-                            {{-- Delete (Tanda Tempat Sampah) --}}
-                            <form action="" method="POST"
-                                style="display: inline-block;">
+                            <form action="{{ route('admin.user.destroy', $user) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                    style="background: #dc3545; color: white; padding: 6px 10px; border-radius: 5px; border: none; cursor: pointer;"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
-                                    <i class="fa fa-trash"></i>
+                                <button type="submit" onclick="return confirm('Hapus user {{ $user->name }}?')"
+                                    style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
+                                    Delete
                                 </button>
                             </form>
-
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" style="padding: 12px; text-align: center;">Tidak ada data user.</td>
+                        <td colspan="5" style="padding:20px;text-align:center;">
+                            Tidak ada data user.
+                        </td>
                     </tr>
                 @endforelse
-
             </tbody>
         </table>
+
+        {{-- Pagination --}}
+        <div style="margin-top:20px;">
+            {{ $users->links() }}
+        </div>
+
     </div>
 
 @endsection
