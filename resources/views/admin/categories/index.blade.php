@@ -46,12 +46,12 @@
                         <td style="padding:12px;text-align:center;">
                             <a href="{{ route('admin.categories.show', $category->id) }}"
                                 style="background:#007bff;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;">
-                                View
+                                <i class="fas fa-eye"></i>
                             </a>
 
                             <a href="{{ route('admin.categories.edit', $category->id) }}"
                                 style="background:#ffc107;color:#333;padding:6px 10px;border-radius:5px;text-decoration:none;margin:0 5px;">
-                                Edit
+                                <i class="fas fa-edit"></i>
                             </a>
 
                             <form action="{{ route('admin.categories.destroy', $category->id) }}"
@@ -62,7 +62,7 @@
                                 <button type="submit"
                                     onclick="return confirm('Hapus category {{ $category->name }}?')"
                                     style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
-                                    Delete
+                                    <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </td>
