@@ -11,6 +11,7 @@
 
     {{-- CSS --}}
     <style>
+        /* ===== TIDAK DIUBAH ===== */
         * {
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
@@ -26,7 +27,6 @@
             min-height: 100vh;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 240px;
             background: #fff;
@@ -57,7 +57,6 @@
             color: #4a5bdc;
         }
 
-        /* CONTENT */
         .content {
             flex: 1;
             padding: 30px;
@@ -82,10 +81,7 @@
             color: #333;
             padding: 20px;
             border-radius: 20px;
-
-            box-shadow:
-                0 20px 50px rgba(0, 0, 0, 0.25);
-
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.03);
         }
@@ -103,7 +99,6 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
 
-
         .bottom {
             margin-top: 30px;
             display: grid;
@@ -115,7 +110,6 @@
             background: #fff;
             border-radius: 25px;
             padding: 20px;
-
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
@@ -138,55 +132,101 @@
 
 <body>
 
-    <div class="layout">
+<div class="layout">
 
-        {{-- SIDEBAR --}}
-{{-- SIDEBAR --}}
-<aside class="sidebar">
-    <h3>Admin Dashboard</h3>
-    <div class="menu">
+    {{-- SIDEBAR --}}
+    <aside class="sidebar">
+        <h3>Admin Dashboard</h3>
+        <div class="menu">
 
-        {{-- Dashboard Link --}}
-        <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-            <i class="fa fa-home"></i> Dashboard
-        </a>
+            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <i class="fa fa-home"></i> Dashboard
+            </a>
 
-        {{-- User Link --}}
-        <a href="{{ route('admin.user.index') }}" class="{{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
-            <i class="fa fa-users"></i> User
-            {{-- Mengganti fa-box dengan fa-users, lebih sesuai --}}
-        </a>
+            <a href="{{ route('admin.user.index') }}" class="{{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
+                <i class="fa fa-users"></i> User
+            </a>
 
-        {{-- Anda bisa menambahkan link lain di sini... --}}
-        <a href="{{ route('admin.transactions.index') }}"
-            class="{{ request()->routeIs('admin.transactions.index') ? 'active' : '' }}">
-            <i class="fa fa-tags"></i> Billing
-        </a>
+            <a href="{{ route('admin.transactions.index') }}"
+               class="{{ request()->routeIs('admin.transactions.index') ? 'active' : '' }}">
+                <i class="fa fa-tags"></i> Billing
+            </a>
 
-        {{-- Link Logout (tetap) --}}
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button style="background:none;border:none;padding:0;width:100%;">
-                <a style="cursor:pointer">
-                    <i class="fa fa-sign-out-alt"></i> Logout
-                </a>
-            </button>
-        </form>
-    </div>
-</aside>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button style="background:none;border:none;padding:0;width:100%;">
+                    <a style="cursor:pointer">
+                        <i class="fa fa-sign-out-alt"></i> Logout
+                    </a>
+                </button>
+            </form>
+        </div>
+    </aside>
 
-        {{-- MAIN CONTENT --}}
-        <main class="content">
-            <div class="topbar">
-                <h1>@yield('page-title')</h1>
-                <i class="fa fa-user-circle fa-2x"></i>
-            </div>
+    {{-- MAIN CONTENT --}}
+    <main class="content">
+        <div class="topbar">
+            <h1>@yield('page-title')</h1>
+            <i class="fa fa-user-circle fa-2x"></i>
+        </div>
 
-            @yield('content')
-        </main>
+        @yield('content')
+    </main>
 
-    </div>
+</div>
+
+{{-- ===== SWEETALERT ===== --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '{{ session('error') }}'
+    });
+</script>
+@endif
+
+{{-- ===== CONFIRM DELETE (DITAMBAHKAN) ===== --}}
+<script>
+document.querySelectorAll('.form-delete').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = form.querySelector('button').dataset.name;
+
+        Swal.fire({
+            title: 'Confirm Delete?',
+            html: `<strong>${name}</strong> akan dihapus`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#5a67f2',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+{{-- ===== END CONFIRM DELETE ===== --}}
 
 </body>
-
 </html>

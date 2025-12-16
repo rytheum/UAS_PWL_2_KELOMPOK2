@@ -63,14 +63,21 @@
                                 Edit
                             </a>
 
-                            <form action="{{ route('admin.user.destroy', $user) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Hapus user {{ $user->name }}?')"
-                                    style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
-                                    Delete
-                                </button>
-                            </form>
+<form action="{{ route('admin.user.destroy', $user) }}"
+      method="POST"
+      class="form-delete"
+      style="display:inline;">
+    @csrf
+    @method('DELETE')
+
+    <button type="submit"
+        data-name="{{ $user->name }}"
+        style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
+        Delete
+    </button>
+</form>
+
+
                         </td>
                     </tr>
                 @empty
