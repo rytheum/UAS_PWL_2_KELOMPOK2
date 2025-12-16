@@ -61,13 +61,14 @@
         .content {
             flex: 1;
             padding: 30px;
-            color: #fff;
+            color: #000000ff;
         }
 
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: #fff;
             margin-bottom: 30px;
         }
 
