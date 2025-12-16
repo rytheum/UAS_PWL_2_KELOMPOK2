@@ -69,7 +69,7 @@
 
                             <a href="{{ route('admin.user.edit', $user) }}"
                                 style="background:#ffc107;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;margin:0 5px;">
-                                <i class="fas fa-edit"></i>
+                                <i class="fa fa-pen"></i>
                             </a>
 
                             <form action="{{ route('admin.user.destroy', $user) }}"
