@@ -3,105 +3,160 @@
 @section('content')
 
     <style>
-        .page-wrapper {
-            background: #5f73e6;
-            min-height: 100vh;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .page-wrapper {
+            
+            min-height: 100vh;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .back-link {
-            color: white;
+            color: #ffffff;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 15px;
             display: inline-flex;
             align-items: center;
             margin-bottom: 20px;
         }
 
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
         .card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px 50px;
-            max-width: 900px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 32px 36px;
+            width: 100%;
+            max-width: 720px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
         .label {
             color: #9e9e9e;
             font-size: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 6px;
-            color: #000;
+            margin-bottom: 4px;
+            color: #111;
+            line-height: 1.3;
         }
 
         .subtitle {
-            color: #555;
-            margin-bottom: 30px;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 28px;
+            word-break: break-all;
         }
 
         .info-row {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .info-label {
             font-size: 13px;
             color: #888;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .info-value {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             color: #222;
         }
 
         .badge {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 14px;
+            padding: 6px 14px;
+            border-radius: 16px;
             font-size: 13px;
             font-weight: 600;
         }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .card {
+                padding: 28px 24px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 16px;
+            }
+
+            .card {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .title {
+                font-size: 22px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .info-value {
+                font-size: 15px;
+            }
+        }
     </style>
 
-    <div class="page-wrapper">
 
-        <a href="{{ route('admin.user.index') }}" class="back-link">← Back</a>
+        <div class="page-wrapper">
 
-        <div class="card" style="margin:0 auto;">
-            <div class="label">Customer</div>
-            <div class="title">{{ $user->name }}</div>
-            <div class="subtitle">{{ $user->email }}</div>
+            <a href="{{ route('admin.user.index') }}" class="back-link">← Back</a>
 
-            <div class="info-row">
-                <div class="info-label">Role</div>
-                <div class="info-value">
-                    <span class="badge" style="
-                            background: {{ $user->role === 'admin' ? '#e3f2fd' : '#e8f5e9' }};
-                            color: {{ $user->role === 'admin' ? '#0d47a1' : '#1b5e20' }};
-                        ">
-                        {{ ucfirst($user->role) }}
-                    </span>
+            <div class="card" style="margin:0 auto;">
+                <div class="label">Customer</div>
+                <div class="title">{{ $user->name }}</div>
+                <div class="subtitle">{{ $user->email }}</div>
+
+                <div class="info-row">
+                    <div class="info-label">Role</div>
+                    <div class="info-value">
+                        <span class="badge" style="
+                                background: {{ $user->role === 'admin' ? '#e3f2fd' : '#e8f5e9' }};
+                                color: {{ $user->role === 'admin' ? '#0d47a1' : '#1b5e20' }};
+                            ">
+                            {{ ucfirst($user->role) }}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="info-row">
-                <div class="info-label">Created At</div>
-                <div class="info-value">
-                    {{ $user->created_at?->format('d M Y H:i') }}
+                <div class="info-row">
+                    <div class="info-label">Created At</div>
+                    <div class="info-value">
+                        {{ $user->created_at?->format('d M Y H:i') }}
+                    </div>
                 </div>
-            </div>
 
+
+            </div>
 
         </div>
-
-    </div>
 
 @endsection

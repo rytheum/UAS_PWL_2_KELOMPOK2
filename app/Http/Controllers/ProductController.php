@@ -29,7 +29,7 @@ class ProductController extends Controller
         $products = $product->get_product()->latest()->paginate(10);
 
         //render view with products
-        return view('products.index', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
     {
         $product = new ProductCategory();
         $data['categories'] = $product->get_product_category()->get();
-        return view('products.create', compact('data'));
+        return view('admin.products.create', compact('data'));
     }
 
     /**
@@ -71,10 +71,10 @@ class ProductController extends Controller
             $product = new Product;
             $insert_product = $product->storeProduct($request, $image);
 
-            return redirect()->route('products.index')->with('success', 'Data Berhasil Disimpan!.');
+            return redirect()->route('admin.products.index')->with('success', 'Data Berhasil Disimpan!.');
         }
 
-        return redirect()->route('products.index')->with('error', 'Failed to upload image.');
+        return redirect()->route('admin.products.index')->with('error', 'Failed to upload image.');
     }
 
     /**
@@ -90,7 +90,7 @@ class ProductController extends Controller
         $product = $product_model->get_product()->where('products.id', $id)->firstOrFail();
 
         //Render view with product
-        return view('products.show', compact('product'));
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -109,7 +109,7 @@ class ProductController extends Controller
         $data['categories'] = $category_model->get_product_category()->get();
 
         //render view with product
-        return view('products.edit', compact('data'));
+        return view('admin.products.edit', compact('data'));
     }
 
     /**
@@ -126,7 +126,6 @@ class ProductController extends Controller
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'title' => 'required|min:5',
         'product_category' => 'required|integer',
-        'supplier_id' => 'required|integer',
         'description' => 'required|min:10',
         'price' => 'required|numeric',
         'stock' => 'required|numeric'
@@ -154,7 +153,6 @@ class ProductController extends Controller
     $updateData = [
         'title' => $request->title,
         'product_category_id' => $request->product_category,
-        'supplier_id' => $request->supplier_id,
         'description' => $request->description,
         'price' => $request->price,
         'stock' => $request->stock,
@@ -165,7 +163,7 @@ class ProductController extends Controller
     $update_product = $product_model->updateProduct($id, $updateData, $name_image);
 
     // Redirect ke index
-    return redirect()->route('products.index')->with('success', 'Data Berhasil Diubah!');
+    return redirect()->route('admin.products.index')->with('success', 'Data Berhasil Diubah!');
 }
 
 
@@ -188,6 +186,6 @@ class ProductController extends Controller
         $product->delete();
 
         //redirect to index
-        return redirect()->route('products.index')->with('success', 'Data Berhasil Dihapus!.');
+        return redirect()->route('admin.products.index')->with('success', 'Data Berhasil Dihapus!.');
     }
 }

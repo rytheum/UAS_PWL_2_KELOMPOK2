@@ -16,7 +16,7 @@
     <div class="card">
       <small>Product</small>
       <h2>4 Item</h2>
-      <a href="#">Kelola Product</a>
+      <a href="{{ route('admin.products.index') }}">Kelola Product</a>
     </div>
 
     <div class="card">
