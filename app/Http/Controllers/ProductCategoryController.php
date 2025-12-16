@@ -36,6 +36,8 @@ class ProductCategoryController extends Controller
 
     public function show($id){
         $productCategory = ProductCategory::findOrFail($id);
+
+        return view('admin.products.show', compact('categories'));
     }
 
     public function update(Request $request, ProductCategory $productCategory)
