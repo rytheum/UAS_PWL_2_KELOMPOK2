@@ -82,10 +82,12 @@
             color: #333;
             padding: 20px;
             border-radius: 20px;
-        }
 
-        .card small {
-            color: #777;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.25);
+
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .card a {
@@ -95,6 +97,12 @@
             color: #4a5bdc;
             text-decoration: none;
         }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
 
         .bottom {
             margin-top: 30px;
@@ -107,6 +115,8 @@
             background: #fff;
             border-radius: 25px;
             padding: 20px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         img {
