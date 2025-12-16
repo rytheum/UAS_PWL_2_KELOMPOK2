@@ -55,12 +55,12 @@
                         <td style="padding:12px;text-align:center;">
                             <a href="{{ route('admin.user.show', $user) }}"
                                 style="background:#007bff;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;">
-                                View
+                                <i class="fas fa-eye"></i>
                             </a>
 
                             <a href="{{ route('admin.user.edit', $user) }}"
                                 style="background:#ffc107;color:#333;padding:6px 10px;border-radius:5px;text-decoration:none;margin:0 5px;">
-                                Edit
+                                <i class="fas fa-edit"></i>
                             </a>
 
 <form action="{{ route('admin.user.destroy', $user) }}"
@@ -73,7 +73,7 @@
     <button type="submit"
         data-name="{{ $user->name }}"
         style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
-        Delete
+        <i class="fa fa-trash"></i>
     </button>
 </form>
 

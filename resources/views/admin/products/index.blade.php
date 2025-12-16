@@ -1,94 +1,135 @@
 @extends('layouts.main')
 
-@section('title', 'Admin Dashboard')
-@section('page-title', 'PRODUCTS')
+@section('title', 'Admin - Product')
+@section('page-title', 'Product')
 
 @section('content')
 
-{{-- TOP ACTION --}}
-<section class="cards" style="grid-template-columns: 1fr;">
-  <div class="card">
-    <small>Total Product</small>
-    <h2>{{ $products->total() }} Item</h2>
-    <a href="{{ route('admin.products.create') }}">Tambah Product</a>
-  </div>
-</section>
+    <div style="
+        background:white;
+        border-radius:25px;
+        padding:25px;
+        box-shadow:0 10px 30px rgba(0,0,0,.15);
+    ">
 
-{{-- TABLE --}}
-<section class="bottom">
-  <div class="box" style="width:100%; overflow-x:auto;">
+        {{-- Button --}}
+        <div style="margin-bottom:20px;">
+            <a href="{{ route('admin.products.create') }}" style="
+                    background:#2ecc71;
+                    color:white;
+                    padding:10px 18px;
+                    border-radius:12px;
+                    text-decoration:none;
+                    font-weight:600;
+                    display:inline-block;
+               ">
+                Tambah Product +
+            </a>
+        </div>
 
-    @if (session('success'))
-      <div style="margin-bottom:15px; color:green;">
-        {{ session('success') }}
-      </div>
-    @endif
+        {{-- Table --}}
+        <table style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr style="background:#eee;color:#555;font-size:13px;">
+                    <th style="padding:12px;">Image</th>
+                    <th style="padding:12px;">Title</th>
+                    <th style="padding:12px;">Category</th>
+                    <th style="padding:12px;">Price</th>
+                    <th style="padding:12px;">Stock</th>
+                    <th style="padding:12px;text-align:center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($products as $product)
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:12px;">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" style="
+                                        width:45px;
+                                        height:45px;
+                                        border-radius:10px;
+                                        object-fit:cover;
+                                     ">
+                        </td>
+                        <td style="padding:12px;font-weight:600;">
+                            {{ $product->title }}
+                        </td>
+                        <td style="padding:12px;">
+                            {{ $product->category_name ?? '-' }}
+                        </td>
+                        <td style="padding:12px;">
+                            Rp {{ number_format($product->price, 0, ',', '.') }}
+                        </td>
+                        <td style="padding:12px;">
+                            {{ $product->stock }}
+                        </td>
+                        <td style="padding:12px;">
+                            <div style="display:flex;justify-content:center;gap:8px;">
 
-    <table width="100%" cellpadding="10" cellspacing="0">
-      <thead>
-        <tr style="background:#f5f5f5; text-align:left;">
-          <th>Image</th>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th width="160">Action</th>
-        </tr>
-      </thead>
+                                {{-- View --}}
+                                <a href="{{ route('admin.products.show', $product->id) }}" style="
+                                            width:34px;
+                                            height:34px;
+                                            background:#3498db;
+                                            color:white;
+                                            border-radius:8px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            text-decoration:none;
+                                       ">
+                                    <i class="fa fa-eye"></i>
+                                </a>
 
-      <tbody>
-        @forelse ($products as $product)
-          <tr style="border-bottom:1px solid #eee;">
-            <td>
-              <img
-                src="{{ asset('storage/images/'.$product->image) }}"
-                width="60"
-                style="border-radius:6px"
-              >
-            </td>
-            <td>{{ $product->title }}</td>
-            <td>{{ $product->product_categories_name }}</td>
-            <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-            <td>{{ $product->stock }}</td>
-            <td>
-              <a href="{{ route('admin.products.show', $product->id) }}">
-                👁
-              </a>
-              |
-              <a href="{{ route('admin.products.edit', $product->id) }}">
-                ✏
-              </a>
-              |
-              <form
-                action="{{ route('admin.products.destroy', $product->id) }}"
-                method="POST"
-                style="display:inline"
-                onsubmit="return confirm('Yakin hapus data?')"
-              >
-                @csrf
-                @method('DELETE')
-                <button type="submit" style="background:none;border:none;color:red;cursor:pointer">
-                  🗑
-                </button>
-              </form>
-            </td>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="6" style="text-align:center;">
-              Data product belum ada
-            </td>
-          </tr>
-        @endforelse
-      </tbody>
-    </table>
+                                {{-- Edit --}}
+                                <a href="{{ route('admin.products.edit', $product->id) }}" style="
+                                            width:34px;
+                                            height:34px;
+                                            background:#f1c40f;
+                                            color:#333;
+                                            border-radius:8px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            text-decoration:none;
+                                       ">
+                                    <i class="fa fa-pen"></i>
+                                </a>
 
-    {{-- PAGINATION --}}
-    <div style="margin-top:20px;">
-      {{ $products->links() }}
+                                {{-- Delete --}}
+                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Hapus product ini?')" style="
+                                                width:34px;
+                                                height:34px;
+                                                background:#e74c3c;
+                                                color:white;
+                                                border:none;
+                                                border-radius:8px;
+                                                cursor:pointer;
+                                            ">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding:20px;text-align:center;color:#777;">
+                            Tidak ada product
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        {{-- Pagination --}}
+        <div style="margin-top:20px;">
+            {{ $products->links() }}
+        </div>
+
     </div>
-
-  </div>
-</section>
 
 @endsection
