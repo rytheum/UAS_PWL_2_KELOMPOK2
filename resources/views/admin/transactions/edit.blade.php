@@ -35,17 +35,19 @@
     <div class="form-row">
 
         <div class="form-group">
-            <label class="form-label">Produk</label>
-            <select name="id_product[]" class="form-select">
-                <option value="">Pilih Produk</option>
-                @foreach ($products as $product)
-        <option value="{{ $product->id }}"
-            {{ old('id_product.'.$index, $detail->id_product) == $product->id ? 'selected' : '' }}>
-            {{ $product->title }} (Stok: {{ $product->stock }})
-        </option>
-    @endforeach
-            </select>
-        </div>
+        <label class="form-label">Produk</label>
+        <select name="id_product[]" class="form-select">
+            <option value="">Pilih Produk</option>
+
+            @foreach ($products as $product)
+                <option value="{{ $product->id }}"
+                    {{ old('id_product.'.$index, $detail->product_id) == $product->id ? 'selected' : '' }}>
+                    {{ $product->title }} (Stok: {{ $product->stock }})
+                </option>
+            @endforeach
+
+        </select>
+    </div>
 
         <div class="form-group">
             <label class="form-label">Jumlah</label>

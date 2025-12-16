@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $table = 'transactions';
-    protected $primaryKey = 'id_transaction'; // 🔥 WAJIB
+    protected $primaryKey = 'id_transaction';
 
     protected $fillable = [
         'id_user',
@@ -29,5 +29,15 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(Pmethod::class, 'id_method');
+    }
+
+    public function paymentStatus()
+    {
+        return $this->belongsTo(Pstatus::class, 'id_payment_status', 'id_payment_status');
     }
 }

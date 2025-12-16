@@ -10,6 +10,9 @@ class Pstatus extends Model
     use HasFactory;
 
     protected $table = 'payment_statuses';
+    protected $primaryKey = 'id_payment_status';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     protected $fillable = [
         'status_name',
