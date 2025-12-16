@@ -10,7 +10,6 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $categories = ProductCategory::withCount('products')->get();
-
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -25,39 +24,41 @@ class ProductCategoryController extends Controller
             'category_name' => 'required|string|max:255',
         ]);
 
-        ProductCategory::create([
-            'category_name' => $validated['category_name'],
-        ]);
+        ProductCategory::create($validated);
 
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category created successfully');
     }
 
-    public function show($id){
-        $productCategory = ProductCategory::findOrFail($id);
-
-        return view('admin.products.show', compact('categories'));
+    // ✅ FIX
+    public function edit(ProductCategory $category)
+    {
+        return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(Request $request, ProductCategory $productCategory)
+    public function show(ProductCategory $category)
+    {
+        return view('admin.categories.show', compact('category'));
+    }
+
+    // ✅ FIX
+    public function update(Request $request, ProductCategory $category)
     {
         $validated = $request->validate([
             'category_name' => 'required|string|max:255',
         ]);
 
-        $productCategory->update([
-            'category_name' => $validated['category_name'],
-        ]);
+        $category->update($validated);
 
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category updated successfully');
     }
 
-    public function destroy(ProductCategory $productCategory)
+    public function destroy(ProductCategory $category)
     {
-        $productCategory->delete();
+        $category->delete();
 
         return redirect()
             ->route('admin.categories.index')

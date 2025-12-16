@@ -12,8 +12,12 @@ protected $fillable = [
 'id_user','id_method','transaction_time','id_cart','id_payment_status','id_order_status'
 ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 
-public function details()
+    public function details()
 {
 return $this->hasMany(DetailTransaction::class, 'id_transaction');
 }
