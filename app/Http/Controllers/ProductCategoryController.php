@@ -9,7 +9,9 @@ class ProductCategoryController extends Controller
 {
     public function index()
     {
-        return ProductCategory::withCount('products')->get();
+        $categories = ProductCategory::withCount('products')->get();
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function store(Request $request)
@@ -18,7 +20,11 @@ class ProductCategoryController extends Controller
             'category_name' => 'required|string|max:255',
         ]);
 
-        return ProductCategory::create($data);
+        ProductCategory::create($data);
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category created successfully');
     }
 
     public function update(Request $request, ProductCategory $productCategory)
@@ -29,12 +35,17 @@ class ProductCategoryController extends Controller
 
         $productCategory->update($data);
 
-        return $productCategory;
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category updated successfully');
     }
 
     public function destroy(ProductCategory $productCategory)
     {
-        $productCategory->delete(); // otomatis nullOnDelete ke product
-        return response()->json(['message' => 'Category deleted']);
+        $productCategory->delete(); // nullOnDelete ke products
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category deleted successfully');
     }
 }
