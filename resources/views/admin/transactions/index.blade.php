@@ -5,6 +5,6 @@
 
 @section('content')
 
-    pppp
+    
 
 @endsection

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Transaction;
 use App\Models\DetailTransaction;
 use App\Models\Cart;
@@ -12,11 +11,15 @@ use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource (ADMIN VIEW).
      */
     public function index()
     {
-        return Transaction::with('details')->get();
+        $transactions = Transaction::with('details')
+            ->latest('transaction_time')
+            ->get();
+
+        return view('admin.transactions.index', compact('transactions'));
     }
 
     /**
@@ -32,8 +35,8 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-         DB::transaction(function () use ($request) {
-            // 1. Buat transaksi
+        DB::transaction(function () use ($request) {
+
             $transaction = Transaction::create([
                 'id_user' => $request->id_user,
                 'id_method' => $request->id_method,
@@ -43,10 +46,8 @@ class TransactionController extends Controller
                 'id_order_status' => 1    // diproses
             ]);
 
-            // 2. Ambil cart user
             $carts = Cart::where('id_user', $request->id_user)->get();
 
-            // 3. Pindahkan cart ke detail_transaksi
             foreach ($carts as $cart) {
                 DetailTransaction::create([
                     'id_transaction' => $transaction->id_transaction,
@@ -55,48 +56,42 @@ class TransactionController extends Controller
                     'total_price' => $cart->jumlah_produk * 10000 // contoh harga
                 ]);
             }
-            // 4. Kosongkan cart
+
             Cart::where('id_user', $request->id_user)->delete();
         });
 
-        return response()->json([
-            'message' => 'Transaksi berhasil dibuat'
-        ]);
+        return redirect()
+            ->route('admin.transactions.index')
+            ->with('success', 'Transaksi berhasil dibuat');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource (optional API / detail).
      */
     public function show(string $id)
     {
-        return Transaction::with('details')
+        $transaction = Transaction::with('details')
             ->where('id_transaction', $id)
             ->firstOrFail();
+
+        return view('admin.transactions.show', compact('transaction'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return Transaction::findOrFail($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update status transaksi.
      */
     public function update(Request $request, string $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::where('id_transaction', $id)->firstOrFail();
 
         $transaction->update([
             'id_payment_status' => $request->id_payment_status,
             'id_order_status' => $request->id_order_status
         ]);
 
-        return response()->json([
-            'message' => 'Status transaksi berhasil diperbarui'
-        ]);
+        return redirect()
+            ->route('admin.transactions.index')
+            ->with('success', 'Status transaksi berhasil diperbarui');
     }
 
     /**
@@ -106,8 +101,8 @@ class TransactionController extends Controller
     {
         Transaction::where('id_transaction', $id)->delete();
 
-        return response()->json([
-            'message' => 'Transaksi berhasil dihapus'
-        ]);
+        return redirect()
+            ->route('admin.transactions.index')
+            ->with('success', 'Transaksi berhasil dihapus');
     }
 }
