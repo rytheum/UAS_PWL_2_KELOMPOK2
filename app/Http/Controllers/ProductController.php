@@ -39,10 +39,11 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $product = new ProductCategory();
-        $data['categories'] = $product->get_product_category()->get();
+        $data['categories'] = ProductCategory::all();
+
         return view('admin.products.create', compact('data'));
     }
+
 
     /**
      * store
