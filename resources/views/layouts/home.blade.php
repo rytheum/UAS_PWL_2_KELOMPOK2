@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title', 'Dashboard')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #6274e1;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: 240px;
+            background: #fff;
+            border-radius: 30px;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .menu a,
+        .menu button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: #333;
+            text-decoration: none;
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .menu a.active,
+        .menu a:hover,
+        .menu button:hover {
+            background: #eef1ff;
+            color: #4a5bdc;
+        }
+
+        /* ================= CONTENT ================= */
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        /* ================= CARDS ================= */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            color: #333;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            transition: 0.3s ease;
+        }
+
+        .card small {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+            font-size: 26px;
+        }
+
+        .card a {
+            font-size: 13px;
+            color: #4a5bdc;
+            text-decoration: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ================= BOTTOM ================= */
+        .bottom {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .box {
+            background: #fff;
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .box img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 992px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bottom {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+    {{-- SIDEBAR --}}
+    <aside class="sidebar">
+        <h3>Admin Dashboard</h3>
+    
+        <div class="menu">
+            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <i class="fa fa-home"></i> Dashboard
+            </a>
+    
+            <a href="{{ route('admin.user.index') }}" class="{{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
+                <i class="fa fa-users"></i> Tables
+            </a>
+    
+            <a href="{{ route('admin.transactions.index') }}"
+                class="{{ request()->routeIs('admin.transactions.*') ? 'active' : '' }}">
+                <i class="fa fa-tags"></i> Billing
+            </a>
+    
+            <form method="POST" action="{{ route('logout') }}" class="form-logout">
+                @csrf
+                <button type="submit"
+                    style="background:none;border:none;padding:12px;width:100%;cursor:pointer;text-align:left;">
+                    <i class="fa fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+    </aside>
+        {{-- MAIN CONTENT --}}
+        <main class="content">
+            <div class="topbar">
+                <h1>@yield('page-title')</h1>
+                <i class="fa fa-user-circle fa-2x"></i>
+            </div>
+
+            @yield('content')
+        </main>
+
+    </div>
+
+    {{-- SWEETALERT --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.querySelectorAll('.form-logout').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Logout?',
+                    text: 'Kamu akan keluar dari akun ini',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Logout',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#5a67f2',
+                    cancelButtonColor: '#dc3545',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
