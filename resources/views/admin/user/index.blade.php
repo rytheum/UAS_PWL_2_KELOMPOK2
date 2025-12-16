@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <h2 style="margin-bottom:20px;">User Management</h2>
+@section('title', 'Admin - User')
+@section('page-title', 'User')
 
     {{-- Alert --}}
     @if (session('success'))
@@ -13,12 +14,21 @@
 
     <div style="background:white;padding:20px;border-radius:20px;">
 
-        <div style="margin-bottom:15px;text-align:right;">
-            <a href="{{ route('admin.user.create') }}"
-                style="background:#28a745;color:white;padding:8px 14px;border-radius:6px;text-decoration:none;">
-                + Tambah User
+        {{-- Button --}}
+        <div style="margin-bottom:20px;">
+            <a href="{{ route('admin.user.create') }}" style="
+                            background:#2ecc71;
+                            color:white;
+                            padding:10px 18px;
+                            border-radius:12px;
+                            text-decoration:none;
+                            font-weight:600;
+                            display:inline-block;
+                       ">
+                Tambah Product +
             </a>
         </div>
+
 
         <table style="width:100%;border-collapse:collapse;color:#333;">
             <thead style="background:#f8f9fa;">
