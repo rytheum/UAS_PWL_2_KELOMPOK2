@@ -107,7 +107,7 @@ class ProductController extends Controller
         $data['product'] = $product_model->get_product()->where('products.id', $id)->firstOrFail();
 
         $category_model = new ProductCategory();
-        $data['categories'] = $category_model->get_product_category()->get();
+        $data['categories'] = $category_model->all();
 
         //render view with product
         return view('admin.products.edit', compact('data'));
@@ -120,9 +120,8 @@ class ProductController extends Controller
      * @param mixed $id
      * @return RedirectResponse
      */
-    public function update(Request $request, string $id): RedirectResponse
+   public function update(Request $request, string $id): RedirectResponse
 {
-    // Validasi form
     $validatedData = $request->validate([
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'title' => 'required|min:5',
@@ -133,38 +132,40 @@ class ProductController extends Controller
     ]);
 
     $product_model = new Product;
-    $data_product = $product_model->get_product()->where('products.id', $id)->firstOrFail();
+    $data_product = $product_model->get_product()
+        ->where('products.id', $id)
+        ->firstOrFail();
 
-    // Default: pakai gambar lama
+    // Default pakai gambar lama
     $name_image = $data_product->image;
 
-    // Kalau user upload gambar baru
+    // Kalau upload gambar baru
     if ($request->hasFile('image')) {
         $image = $request->file('image');
         $name_image = $image->hashName();
-        $image->store('images', 'public');
 
-        // Hapus gambar lama (jika ada)
+        // simpan gambar baru
+        $image->storeAs('images', $name_image, 'public');
+
+        // hapus gambar lama
         if ($data_product->image) {
             Storage::disk('public')->delete('images/' . $data_product->image);
         }
     }
 
-    // Data yang akan diupdate
-    $updateData = [
+    // UPDATE DATA PRODUCT (INI YANG WAJIB)
+    $data_product->update([
         'title' => $request->title,
-        'product_category_id' => $request->product_category,
         'description' => $request->description,
         'price' => $request->price,
         'stock' => $request->stock,
+        'product_category_id' => $request->product_category,
         'image' => $name_image,
-    ];
+    ]);
 
-    // Update ke model
-    $update_product = $product_model->updateProduct($id, $updateData, $name_image);
-
-    // Redirect ke index
-    return redirect()->route('admin.products.index')->with('success', 'Data Berhasil Diubah!');
+    return redirect()
+        ->route('admin.products.index')
+        ->with('success', 'Product berhasil diupdate');
 }
 
 

@@ -14,26 +14,39 @@ class ProductCategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
+    public function create()
+    {
+        return view('admin.categories.create');
+    }
+
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'category_name' => 'required|string|max:255',
         ]);
 
-        ProductCategory::create($data);
+        ProductCategory::create([
+            'category_name' => $validated['category_name'],
+        ]);
 
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category created successfully');
     }
 
+    public function show($id){
+        $productCategory = ProductCategory::findOrFail($id);
+    }
+
     public function update(Request $request, ProductCategory $productCategory)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'category_name' => 'required|string|max:255',
         ]);
 
-        $productCategory->update($data);
+        $productCategory->update([
+            'category_name' => $validated['category_name'],
+        ]);
 
         return redirect()
             ->route('admin.categories.index')
@@ -42,7 +55,7 @@ class ProductCategoryController extends Controller
 
     public function destroy(ProductCategory $productCategory)
     {
-        $productCategory->delete(); // nullOnDelete ke products
+        $productCategory->delete();
 
         return redirect()
             ->route('admin.categories.index')

@@ -12,15 +12,6 @@
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        .page-wrapper {
-            
-            min-height: 100vh;
-            padding: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
         .back-link {
             color: #ffffff;
             text-decoration: none;
@@ -87,41 +78,6 @@
             border-radius: 16px;
             font-size: 13px;
             font-weight: 600;
-        }
-
-        /* Tablet */
-        @media (max-width: 768px) {
-            .card {
-                padding: 28px 24px;
-            }
-
-            .title {
-                font-size: 24px;
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 480px) {
-            .page-wrapper {
-                padding: 16px;
-            }
-
-            .card {
-                padding: 24px 20px;
-                border-radius: 20px;
-            }
-
-            .title {
-                font-size: 22px;
-            }
-
-            .subtitle {
-                font-size: 14px;
-            }
-
-            .info-value {
-                font-size: 15px;
-            }
         }
     </style>
 
