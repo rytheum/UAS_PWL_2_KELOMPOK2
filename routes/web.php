@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,25 +24,17 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Auth (Login & Register - satu halaman)
+| Auth (Login & Register)
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
 
-    // halaman auth (login + register)
-    Route::get('/auth', function () {
-        return view('auth.auth');
-    })->name('auth');
+    Route::get('/auth', fn() => view('auth.auth'))->name('auth');
 
-    /**
-     * IMPORTANT:
-     * Laravel butuh route bernama "login"
-     * Jadi kita redirect ke /auth
-     */
+    // Laravel butuh route bernama "login"
     Route::get('/login', fn() => redirect()->route('auth'))->name('login');
     Route::get('/register', fn() => redirect()->route('auth'))->name('register');
 
-    // proses login & register
     Route::post('/login', [AuthController::class, 'login'])
         ->name('login.process');
 
@@ -60,20 +53,22 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| Admin
+| Admin Area
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/dashboard', function () {
+        Route::get('/dashboard', function () {
+            abort_if(auth()->user()->role !== 'admin', 403);
+            return view('admin.dashboard');
+        })->name('dashboard');
 
-        abort_if(auth()->user()->role !== 'admin', 403);
-
-        return view('admin.dashboard');
-
-    })->name('dashboard');
-
-    Route::resource('products', ProductController::class);
-    Route::resource('categories', ProductCategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-});
+        // 🔥 RESOURCE ROUTES (IMPORTANT)
+        Route::resource('user', UserController::class);
+        Route::resource('products', ProductController::class);
+        Route::resource('categories', ProductCategoryController::class);
+        Route::resource('transactions', TransactionController::class);
+    });
