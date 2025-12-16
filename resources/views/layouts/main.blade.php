@@ -152,12 +152,13 @@
                 <i class="fa fa-tags"></i> Billing
             </a>
 
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST"
+                action="{{ route('logout') }}"
+                class="form-logout">
                 @csrf
-                <button style="background:none;border:none;padding:0;width:100%;">
-                    <a style="cursor:pointer">
-                        <i class="fa fa-sign-out-alt"></i> Logout
-                    </a>
+                <button type="submit"
+                        style="background:none;border:none;padding:0;width:100%;cursor:pointer;text-align:left;">
+                    <i class="fa fa-sign-out-alt"></i> Logout
                 </button>
             </form>
         </div>
@@ -227,6 +228,30 @@ document.querySelectorAll('.form-delete').forEach(form => {
 });
 </script>
 {{-- ===== END CONFIRM DELETE ===== --}}
+
+<script>
+document.querySelectorAll('.form-logout').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Kamu akan keluar dari akun ini',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+
 
 </body>
 </html>
