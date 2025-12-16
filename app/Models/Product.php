@@ -25,7 +25,7 @@ class Product extends Model
             "products.*",
             "product_categories.product_categories_name as product_categories_name",
         )
-            ->leftjoin('product_categories', 'product_categories.id', '=', 'products.product_categories_id');
+            ->leftjoin('product_categories', 'product_categories.id', '=', 'products.product_category_id');
         return $sql;
     }
 
