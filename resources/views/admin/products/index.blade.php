@@ -50,7 +50,7 @@
                                         object-fit:cover;
                                      ">
                         </td>
-                        <td style="padding:12px;">
+                        <td style="padding:12px;font-weight:500;">
                             {{ $product->title }}
                         </td>
                         <td style="padding:12px;">
@@ -85,7 +85,7 @@
                                             width:34px;
                                             height:34px;
                                             background:#f1c40f;
-                                            color:#333;
+                                            color:#white;
                                             border-radius:8px;
                                             display:flex;
                                             align-items:center;
@@ -96,25 +96,22 @@
                                 </a>
 
                                 {{-- Delete --}}
-                                <form action="{{ route('admin.products.destroy', $product->id) }}"
-                                    method="POST"
-                                    class="form-delete">
+                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
-                                        data-name="{{ $product->title }}"
-                                        style="
-                                            width:34px;
-                                            height:34px;
-                                            background:#e74c3c;
-                                            color:white;
-                                            border:none;
-                                            border-radius:8px;
-                                            cursor:pointer;
-                                        ">
+                                    <button onclick="return confirm('Hapus product ini?')" style="
+                                                width:34px;
+                                                height:34px;
+                                                background:#e74c3c;
+                                                color:white;
+                                                border:none;
+                                                border-radius:8px;
+                                                cursor:pointer;
+                                            ">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
+
                             </div>
                         </td>
                     </tr>
