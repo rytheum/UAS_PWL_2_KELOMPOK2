@@ -50,11 +50,11 @@
                                         object-fit:cover;
                                      ">
                         </td>
-                        <td style="padding:12px;font-weight:600;">
+                        <td style="padding:12px;">
                             {{ $product->title }}
                         </td>
                         <td style="padding:12px;">
-                            {{ $product->category_name ?? '-' }}
+                            {{ $product->product_categories_name ?? '-' }}
                         </td>
                         <td style="padding:12px;">
                             Rp {{ number_format($product->price, 0, ',', '.') }}
