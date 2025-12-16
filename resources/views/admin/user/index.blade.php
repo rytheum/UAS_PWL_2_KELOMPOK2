@@ -25,7 +25,7 @@
                             font-weight:600;
                             display:inline-block;
                        ">
-                Tambah Product +
+                Tambah User +
             </a>
         </div>
 
@@ -61,31 +61,64 @@
                             </span>
                         </td>
 
-                        <td style="padding:12px;text-align:center;">
-                            <a href="{{ route('admin.user.show', $user) }}"
-                                style="background:#007bff;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                        <td style="padding:12px;">
+                            <div style="display:flex;justify-content:center;gap:8px;">
 
-                            <a href="{{ route('admin.user.edit', $user) }}"
-                                style="background:#ffc107;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;margin:0 5px;">
-                                <i class="fa fa-pen"></i>
-                            </a>
+                                {{-- Show --}}
+                                <a href="{{ route('admin.user.show', $user) }}" style="
+                                    width:34px;
+                                    height:34px;
+                                    background:#3498db;
+                                    color:white;
+                                    border-radius:8px;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    text-decoration:none;
+                                ">
+                                    <i class="fa fa-eye"></i>
+                                </a>
 
-                            <form action="{{ route('admin.user.destroy', $user) }}"
-                                method="POST"
-                                class="form-delete"
-                                style="display:inline;">
-                                @csrf
-                                @method('DELETE')
+                                {{-- Edit --}}
+                                <a href="{{ route('admin.user.edit', $user) }}" style="
+                                    width:34px;
+                                    height:34px;
+                                    background:#f1c40f;
+                                    color:white;
+                                    border-radius:8px;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    text-decoration:none;
+                                ">
+                                    <i class="fa fa-pen"></i>
+                                </a>
 
-                                <button type="submit"
-                                    data-name="{{ $user->name }}"
-                                    style="background:#dc3545;color:white;padding:6px 10px;border-radius:5px;border:none;">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
+                                {{-- Delete --}}
+                                <form action="{{ route('admin.user.destroy', $user) }}"
+                                    method="POST"
+                                    class="form-delete">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        data-name="{{ $user->name }}"
+                                        style="
+                                            width:34px;
+                                            height:34px;
+                                            background:#e74c3c;
+                                            color:white;
+                                            border:none;
+                                            border-radius:8px;
+                                            cursor:pointer;
+                                        ">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            </div>
                         </td>
+
                     </tr>
                 @empty
                     <tr>

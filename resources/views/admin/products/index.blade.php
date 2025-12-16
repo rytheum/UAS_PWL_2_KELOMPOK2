@@ -85,7 +85,7 @@
                                             width:34px;
                                             height:34px;
                                             background:#f1c40f;
-                                            color:#white;
+                                            color:white;
                                             border-radius:8px;
                                             display:flex;
                                             align-items:center;
@@ -96,23 +96,26 @@
                                 </a>
 
                                 {{-- Delete --}}
-                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                    method="POST"
+                                    class="form-delete">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Hapus product ini?')" style="
-                                                width:34px;
-                                                height:34px;
-                                                background:#e74c3c;
-                                                color:white;
-                                                border:none;
-                                                border-radius:8px;
-                                                cursor:pointer;
-                                            ">
+
+                                    <button type="submit"
+                                        data-name="{{ $product->title }}"
+                                        style="
+                                            width:34px;
+                                            height:34px;
+                                            background:#e74c3c;
+                                            color:white;
+                                            border:none;
+                                            border-radius:8px;
+                                            cursor:pointer;
+                                        ">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
-
-
                             </div>
                         </td>
                     </tr>
