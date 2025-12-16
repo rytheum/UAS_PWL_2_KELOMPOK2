@@ -34,6 +34,10 @@ class ProductCategoryController extends Controller
             ->with('success', 'Category created successfully');
     }
 
+    public function show($id){
+        $productCategory = ProductCategory::findOrFail($id);
+    }
+
     public function update(Request $request, ProductCategory $productCategory)
     {
         $validated = $request->validate([
