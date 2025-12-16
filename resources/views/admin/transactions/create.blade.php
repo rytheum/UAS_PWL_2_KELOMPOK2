@@ -82,6 +82,19 @@
         </select>
     </div>
 
+    {{-- PAYMENT METHOD --}}
+    <div class="form-group">
+        <label class="form-label">Metode Pembayaran</label>
+        <select name="id_method" class="form-select" required>
+            <option value="">Pilih Metode Pembayaran</option>
+            @foreach ($payment_methods as $method)
+                <option value="{{ $method->id_method }}">
+                    {{ $method->method_name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
     {{-- ACTION --}}
     <div class="form-actions">
         <button type="submit" class="btn-success">

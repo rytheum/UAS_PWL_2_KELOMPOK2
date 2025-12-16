@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\DetailTransaction;
 use App\Models\Cart;
+use App\Models\Pmethod;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -29,42 +30,51 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $products = Product::orderBy('title', 'asc')->get();
-
-        return view('admin.transactions.create', compact('products'));
+        return view('admin.transactions.create', [
+        'products' => Product::all(),
+        'payment_methods' => Pmethod::all(),
+        ]);
     }
-
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'transaction_time' => 'required|date',
+            'id_method' => 'required|exists:payment_methods,id_method',
+            'id_payment_status' => 'required',
+            'id_product' => 'required|array',
+            'items_amount' => 'required|array',
+        ]);
+
         DB::transaction(function () use ($request) {
 
+            // 1️⃣ Simpan transaksi
             $transaction = Transaction::create([
                 'id_user' => Auth::id(),
-                'id_method' => Auth::id(),
+                'id_method' => 1,
                 'transaction_time' => now(),
-                'id_cart' => Auth::id(),
-                'id_payment_status'  => 1, // pending
-                'id_order_status' => 1    // diproses
+                'id_payment_status' => 1,
+                'id_order_status' => 1,
             ]);
 
-            $carts = Cart::where('id_user', $request->id_user)->get();
+            // 2️⃣ Simpan detail transaksi
+            foreach ($request->id_product as $i => $productId) {
+                    $product = Product::findOrFail($productId);
 
-            foreach ($carts as $cart) {
-                DetailTransaction::create([
-                    'id_transaction' => $transaction->id_transaction,
-                    'id_product' => $cart->id_product,
-                    'items_amount' => $cart->jumlah_produk,
-                    'total_price' => $cart->jumlah_produk * 10000 // contoh harga
-                ]);
-            }
+                    $transaction->details()->create([
+                        'product_id' => $productId,
+                        'items_amount' => $request->items_amount[$i],
+                        'total_price' => $product->price * $request->items_amount[$i],
+                    ]);
+                }
 
-            Cart::where('id_user', $request->id_user)->delete();
-        });
+                // 3️⃣ Kurangi stok
+                $product->decrement('stock', $request->items_amount[$i]);
+            });
 
         return redirect()
             ->route('admin.transactions.index')
@@ -81,6 +91,17 @@ class TransactionController extends Controller
             ->firstOrFail();
 
         return view('admin.transactions.show', compact('transaction'));
+    }
+
+    
+    public function edit(string $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        $products = Product::all();
+        $payment_methods = Pmethod::all();
+
+        return view('admin.transactions.edit ', compact('transaction','products','payment_methods'));
     }
 
     /**
