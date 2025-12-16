@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\DetailTransaction;
 use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +29,12 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('admin.transactions.create');
+        $products = Product::orderBy('title', 'asc')->get();
+
+        return view('admin.transactions.create', compact('products'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -38,11 +44,11 @@ class TransactionController extends Controller
         DB::transaction(function () use ($request) {
 
             $transaction = Transaction::create([
-                'id_user' => $request->id_user,
-                'id_method' => $request->id_method,
+                'id_user' => Auth::id(),
+                'id_method' => Auth::id(),
                 'transaction_time' => now(),
-                'id_cart' => null,
-                'id_payment_status' => 1, // pending
+                'id_cart' => Auth::id(),
+                'id_payment_status'  => 1, // pending
                 'id_order_status' => 1    // diproses
             ]);
 

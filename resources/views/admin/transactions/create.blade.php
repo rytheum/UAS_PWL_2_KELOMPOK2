@@ -34,11 +34,15 @@
             <label class="form-label">Produk</label>
             <select name="id_product[]" class="form-select">
                 <option value="">Pilih Produk</option>
-                {{-- nanti looping product --}}
-                <option value="1">Produk A</option>
-                <option value="2">Produk B</option>
+
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}">
+                        {{ $product->title }} (Stok: {{ $product->stock }})
+                    </option>
+                @endforeach
             </select>
         </div>
+
 
         <div class="form-group">
             <label class="form-label">Jumlah</label>
