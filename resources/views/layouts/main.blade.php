@@ -165,14 +165,14 @@
         </a>
 
         {{-- Link Logout (tetap) --}}
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" class="form-logout">
             @csrf
-            <button style="background:none;border:none;padding:0;width:100%;">
-                <a style="cursor:pointer">
-                    <i class="fa fa-sign-out-alt"></i> Logout
-                </a>
+            <button type="submit"
+                style="background:none;border:none;padding:12px;width:100%;cursor:pointer;text-align:left;">
+                <i class="fa fa-sign-out-alt"></i> Logout
             </button>
         </form>
+
     </div>
 </aside>
 
@@ -188,6 +188,84 @@
 
     </div>
 
-</body>
+{{-- ===== SWEETALERT ===== --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '{{ session('error') }}'
+    });
+</script>
+@endif
+
+{{-- ===== CONFIRM DELETE (DITAMBAHKAN) ===== --}}
+<script>
+document.querySelectorAll('.form-delete').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = form.querySelector('button').dataset.name;
+
+        Swal.fire({
+            title: 'Confirm Delete?',
+            html: `<strong>${name}</strong> akan dihapus`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#5a67f2',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+{{-- ===== END CONFIRM DELETE ===== --}}
+
+{{-- ===== CONFIRM LOGOUT ===== --}}
+<script>
+document.querySelectorAll('.form-logout').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Kamu akan keluar dari akun ini',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#5a67f2',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+{{-- ===== END CONFIRM LOGOUT ===== --}}
+
+</body>
 </html>
