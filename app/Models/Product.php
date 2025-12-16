@@ -64,4 +64,9 @@ class Product extends Model
             return "tidak ada data yang diupdate";
         }
     }
+
+    public function category()
+    {
+    return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
 }
