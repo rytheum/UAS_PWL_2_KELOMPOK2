@@ -8,6 +8,12 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\ProfileController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +21,26 @@ use App\Http\Controllers\Customer\HomeController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('landing');
+/*
+|--------------------------------------------------------------------------
+| Product Detail (Landing Page)
+|--------------------------------------------------------------------------
+*/
+Route::get('/product/{product}', [HomeController::class, 'detail'])
+    ->name('product.detail');
 
+
+Route::post('/checkout', [CheckoutController::class, 'index'])->name('checkout.instant');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+Route::post('/payment', [PaymentController::class, 'index'])
+    ->name('payment.index');
+Route::post('/payment/process', [PaymentController::class, 'process'])
+    ->name('payment.process');
+
+
+
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +60,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/register', [AuthController::class, 'register'])
         ->name('register.process');
+});
+
+// Di dalam middleware auth
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 /*
@@ -61,6 +92,7 @@ Route::middleware('auth')
         // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);
         Route::resource('products', ProductController::class);
+
         Route::resource('categories', ProductCategoryController::class);
         Route::resource('transactions', TransactionController::class);
     });
