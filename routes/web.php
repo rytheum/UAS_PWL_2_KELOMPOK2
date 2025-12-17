@@ -6,21 +6,15 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Customer\HomeController;
 
 /*
 |--------------------------------------------------------------------------
 | Landing Page
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index'])->name('landing');
 
-    if (auth()->check() && auth()->user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-    }
-
-    return view('landingpage.index');
-
-})->name('landing');
 
 /*
 |--------------------------------------------------------------------------
