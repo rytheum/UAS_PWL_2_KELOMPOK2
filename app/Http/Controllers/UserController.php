@@ -76,7 +76,7 @@ class UserController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($user->id),
+                Rule::unique('users', 'email')->ignore($user->id_user, 'id_user'),
             ],
             'role' => ['required', Rule::in(['admin', 'customer'])],
         ]);
