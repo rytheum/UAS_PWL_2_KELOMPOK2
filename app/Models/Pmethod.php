@@ -11,6 +11,9 @@ class Pmethod extends Model
 
     protected $table = 'payment_methods';
 
+    protected $primaryKey = 'id_method';    
+    public $incrementing = true;
+    protected $keyType = 'int';
     protected $fillable = [
         'method_name',
     ];
