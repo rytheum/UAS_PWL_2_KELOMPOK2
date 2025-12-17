@@ -75,6 +75,7 @@
     </ol>
 
     <!-- Carousel slides -->
+<!-- Carousel slides -->
 <div class="carousel-inner" role="listbox">
     @foreach($products->take(3) as $key => $product)
                 <div class="item {{ $key == 0 ? 'active' : '' }}">
@@ -329,8 +330,7 @@
 </section>
 
 
-    <!--sofa-collection start -->
-    <section id="sofa-collection">
+    <!--sofa-collection start -->    <section id="sofa-collection">
         <div class="owl-carousel owl-theme" id="collection-carousel">
             <div class="sofa-collection collectionbg1">
                 <div class="container">

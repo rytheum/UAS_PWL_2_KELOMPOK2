@@ -12,6 +12,7 @@ use App\Http\Controllers\Customer\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -63,6 +64,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])
         ->name('register.process');
 });
+
+// Di dalam middleware auth
+
+
 
 // Di dalam middleware auth
 Route::middleware('auth')->group(function () {
