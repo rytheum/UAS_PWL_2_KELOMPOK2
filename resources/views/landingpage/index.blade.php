@@ -85,7 +85,7 @@
                             <div class="col-sm-7">
                                 <div class="single-welcome-hero">
                                     <div class="welcome-hero-txt">
-                                        <h4>great design collection</h4>
+                                        <h4>New Product</h4>
                                         <h2>{{ $product->title }}</h2>
                                         <p>{{ Str::limit($product->description ?? 'No description', 150) }}</p>
                                         <div class="packages-price">
@@ -102,7 +102,7 @@
                                             add <span>to</span> cart
                                         </button>
                                         <button class="btn-cart welcome-add-cart welcome-more-info"
-                                            onclick="window.location.href='#'">
+                                            onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
                                             more info
                                         </button>
                                     </div>
@@ -132,17 +132,27 @@
                 <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"
                     data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
 
-                    <!-- Start Top Search -->
-                    <div class="top-search">
-                        <div class="container">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Top Search -->
+<!-- Start Top Search -->
+<div class="top-search">
+    <div class="container">
+        <form action="{{ route('landing') }}" method="GET">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-search"></i>
+                </span>
+
+                <input type="text" name="search" class="form-control" placeholder="Search product..."
+                    value="{{ request('search') }}">
+
+                <span class="input-group-addon close-search">
+                    <i class="fa fa-times"></i>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Top Search -->
+
 
                     <div class="container">
                         <!-- Start Atribute Navigation -->
