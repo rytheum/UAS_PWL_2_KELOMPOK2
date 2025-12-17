@@ -75,56 +75,64 @@
     </ol>
 
     <!-- Carousel slides -->
+<!-- Carousel slides -->
 <div class="carousel-inner" role="listbox">
     @foreach($products->take(3) as $key => $product)
-        <div class="item {{ $key == 0 ? 'active' : '' }}">
-            <div class="single-slide-item slide{{ $key + 1 }}">
-                <div class="container">
-                    <div class="welcome-hero-content">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <div class="single-welcome-hero">
-                                    <div class="welcome-hero-txt">
-                                        <h4>New Product</h4>
-                                        <h2>{{ $product->title }}</h2>
-                                        <p>{{ Str::limit($product->description ?? 'No description', 150) }}</p>
+                <div class="item {{ $key == 0 ? 'active' : '' }}">
+                    <div class="single-slide-item slide{{ $key + 1 }}">
+                        <div class="container">
+                            <div class="welcome-hero-content">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="single-welcome-hero">
+                                            <div class="welcome-hero-txt">
+                                                <h4>New Product</h4>
+                                                <h2>{{ $product->title }}</h2>
+                                                <p>{{ Str::limit($product->description ?? 'No description', 150) }}</p>
 
-                                        <div class="packages-price">
-                                            <p>
-                                                Rp{{ number_format($product->price, 2) }}
-                                                @if($product->original_price)
-                                                    <del>Rp{{ number_format($product->original_price, 2) }}</del>
-                                                @endif
-                                            </p>
+                                                <div class="packages-price">
+                                                    <p>
+                                                        Rp{{ number_format($product->price, 2) }}
+                                                        @if($product->original_price)
+                                                            <del>Rp{{ number_format($product->original_price, 2) }}</del>
+                                                        @endif
+                                                    </p>
+                                                </div>
+
+        <form action="{{ route('cart.add') }}" method="POST" style="display:inline">
+            @csrf
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="quantity" value="1">
+
+            <button type="submit" class="btn-cart welcome-add-cart">
+                <span class="lnr lnr-plus-circle"></span>
+                Add<span>to</span> cart
+            </button>
+        </form>
+
+
+                                                <button class="btn-cart welcome-add-cart welcome-more-info"
+                                                    onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
+                                                    more info
+                                                </button>
+                                            </div>
                                         </div>
-
-                                        <button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
-                                            <span class="lnr lnr-plus-circle"></span>
-                                            add <span>to</span> cart
-                                        </button>
-
-                                        <button class="btn-cart welcome-add-cart welcome-more-info"
-                                            onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
-                                            more info
-                                        </button>
                                     </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="single-welcome-hero">
+                                            <div class="welcome-hero-img">
+                                                <img src="{{ asset('storage/images/' . $product->image) }}"
+                                                    alt="{{ $product->title }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div class="col-sm-5">
-                                <div class="single-welcome-hero">
-                                    <div class="welcome-hero-img">
-                                        <img src="{{ asset('storage/images/' . $product->image) }}"
-                                            alt="{{ $product->title }}">
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
     @endforeach
 </div>
 
@@ -171,49 +179,68 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <span class="lnr lnr-cart"></span>
-                                        <span class="badge badge-bg-1">2</span>
+<span class="badge badge-bg-1">
+    {{ $carts->sum('quantity') ?? 0 }}
+</span>
                                     </a>
+                                
                                     <ul class="dropdown-menu cart-list s-cate">
-                                        <li class="single-cart-list">
-                                            <a href="#" class="photo"><img src="assets/images/collection/arrivals1.png"
-                                                    class="cart-thumb" alt="image" /></a>
-                                            <div class="cart-list-txt">
-                                                <h6><a href="#">arm <br> chair</a></h6>
-                                                <p>1 x - <span class="price">$180.00</span></p>
-                                            </div><!--/.cart-list-txt-->
-                                            <div class="cart-close">
-                                                <span class="lnr lnr-cross"></span>
-                                            </div><!--/.cart-close-->
-                                        </li><!--/.single-cart-list -->
-                                        <li class="single-cart-list">
-                                            <a href="#" class="photo"><img src="assets/images/collection/arrivals2.png"
-                                                    class="cart-thumb" alt="image" /></a>
-                                            <div class="cart-list-txt">
-                                                <h6><a href="#">single <br> armchair</a></h6>
-                                                <p>1 x - <span class="price">$180.00</span></p>
-                                            </div><!--/.cart-list-txt-->
-                                            <div class="cart-close">
-                                                <span class="lnr lnr-cross"></span>
-                                            </div><!--/.cart-close-->
-                                        </li><!--/.single-cart-list -->
-                                        <li class="single-cart-list">
-                                            <a href="#" class="photo"><img src="assets/images/collection/arrivals3.png"
-                                                    class="cart-thumb" alt="image" /></a>
-                                            <div class="cart-list-txt">
-                                                <h6><a href="#">wooden arn <br> chair</a></h6>
-                                                <p>1 x - <span class="price">$180.00</span></p>
-                                            </div><!--/.cart-list-txt-->
-                                            <div class="cart-close">
-                                                <span class="lnr lnr-cross"></span>
-                                            </div><!--/.cart-close-->
-                                        </li><!--/.single-cart-list -->
+                                
+                                        @php $total = 0; @endphp
+                                
+                                        @forelse($carts as $cart)
+                                            @php
+    $subtotal = $cart->quantity * $cart->product->price;
+    $total += $subtotal;
+                                            @endphp
+
+                                            <li class="single-cart-list">
+                                                <a href="#" class="photo">
+                                                    <img src="{{ asset('storage/' . $cart->product->image) }}" class="cart-thumb" alt="image" />
+                                                </a>
+
+                                                <div class="cart-list-txt">
+                                                    <h6>
+                                                        <a href="{{ route('product.detail', $cart->product->id) }}">
+                                                            {{ $cart->product->name }}
+                                                        </a>
+                                                    </h6>
+                                                    <p>
+                                                        {{ $cart->quantity }} x -
+                                                        <span class="price">
+                                                            Rp {{ number_format($cart->product->price, 0, ',', '.') }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="cart-close">
+                                                    <form action="{{ route('cart.delete', $cart->id_cart) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" style="background:none;border:none;cursor:pointer;">
+                                                            <span class="lnr lnr-cross"></span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        @empty
+                                            <li class="single-cart-list text-center">
+                                                <p style="padding:10px;">Cart kosong</p>
+                                            </li>
+                                        @endforelse
+                                
                                         <li class="total">
-                                            <span>Total: $0.00</span>
-                                            <button class="btn-cart pull-right" onclick="window.location.href='#'">view
-                                                cart</button>
+                                            <span>
+                                                Total:
+                                                Rp {{ number_format($total, 0, ',', '.') }}
+                                            </span>
+                                            <button class="btn-cart pull-right" onclick="window.location.href='{{ route('cart') }}'">
+                                                view cart
+                                            </button>
                                         </li>
                                     </ul>
-                                </li><!--/.dropdown-->
+                                </li>
+
                                 <li class="nav-login">
                                     <a href="/auth"><span class="lnr lnr-enter-down"></span></a>
                                 </li>
@@ -303,8 +330,7 @@
 </section>
 
 
-    <!--sofa-collection start -->
-    <section id="sofa-collection">
+    <!--sofa-collection start -->    <section id="sofa-collection">
         <div class="owl-carousel owl-theme" id="collection-carousel">
             <div class="sofa-collection collectionbg1">
                 <div class="container">

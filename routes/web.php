@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProfileController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -63,9 +64,20 @@ Route::middleware('guest')->group(function () {
 });
 
 // Di dalam middleware auth
+
+
+
+// Di dalam middleware auth
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update/{id_cart}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{id_cart}', [CartController::class, 'destroy'])->name('cart.delete');
+
+    // Checkout dari Cart
+    Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 });
 
 /*
