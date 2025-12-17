@@ -329,52 +329,6 @@
     </div>
 </section>
 
-
-    <!--sofa-collection start -->    <section id="sofa-collection">
-        <div class="owl-carousel owl-theme" id="collection-carousel">
-            <div class="sofa-collection collectionbg1">
-                <div class="container">
-                    <div class="sofa-collection-txt">
-                        <h2>unlimited sofa collection</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                        <div class="sofa-collection-price">
-                            <h4>strting from <span>$ 199</span></h4>
-                        </div>
-                        <button class="btn-cart welcome-add-cart sofa-collection-btn"
-                            onclick="window.location.href='#'">
-                            view more
-                        </button>
-                    </div>
-                </div>
-            </div><!--/.sofa-collection-->
-            <div class="sofa-collection collectionbg2">
-                <div class="container">
-                    <div class="sofa-collection-txt">
-                        <h2>unlimited dainning table collection</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                        <div class="sofa-collection-price">
-                            <h4>strting from <span>$ 299</span></h4>
-                        </div>
-                        <button class="btn-cart welcome-add-cart sofa-collection-btn"
-                            onclick="window.location.href='#'">
-                            view more
-                        </button>
-                    </div>
-                </div>
-            </div><!--/.sofa-collection-->
-        </div><!--/.collection-carousel-->
-
-    </section><!--/.sofa-collection-->
-    <!--sofa-collection end -->
-
     <!--feature start -->
     <section id="feature" class="feature">
         <div class="container">
@@ -385,58 +339,58 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="single-feature">
-                            <img src="assets/images/features/f1.jpg" alt="feature image">
+                            <img src="assets/images/features/f1.png" alt="feature image">
                             <div class="single-feature-txt text-center">
                                 <p>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
                                     <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
                                     <span class="feature-review">(45 review)</span>
                                 </p>
-                                <h3><a href="#">designed sofa</a></h3>
-                                <h5>$160.00</h5>
+                                <h3><a href="#">Oppo Reno 5G</a></h3>
+                                <h5>Rp6.000.000,00</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="single-feature">
-                            <img src="assets/images/features/f2.jpg" alt="feature image">
+                            <img src="assets/images/features/f2.png" alt="feature image">
                             <div class="single-feature-txt text-center">
                                 <p>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
-                                    <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
+                                    <i class="fa fa-star"></i>
                                     <span class="feature-review">(45 review)</span>
                                 </p>
-                                <h3><a href="#">dinning table </a></h3>
-                                <h5>$200.00</h5>
+                                <h3><a href="#">IPhone 17 Pro</a></h3>
+                                <h5>Rp8.000.000,00</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="single-feature">
-                            <img src="assets/images/features/f3.jpg" alt="feature image">
+                            <img src="assets/images/features/f3.png" alt="feature image">
                             <div class="single-feature-txt text-center">
                                 <p>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
-                                    <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
+                                    <i class="fa fa-star"></i>
                                     <span class="feature-review">(45 review)</span>
                                 </p>
-                                <h3><a href="#">chair and table</a></h3>
-                                <h5>$100.00</h5>
+                                <h3><a href="#">ROG 25</a></h3>
+                                <h5>Rp50.000.000,0</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="single-feature">
-                            <img src="assets/images/features/f4.jpg" alt="feature image">
+                            <img src="assets/images/features/f4.png" alt="feature image">
                             <div class="single-feature-txt text-center">
                                 <p>
                                     <i class="fa fa-star"></i>
@@ -446,8 +400,8 @@
                                     <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
                                     <span class="feature-review">(45 review)</span>
                                 </p>
-                                <h3><a href="#">modern arm chair</a></h3>
-                                <h5>$299.00</h5>
+                                <h3><a href="#">VIVO V60r\</a></h3>
+                                <h5>Rp8.000.000,00</h5>
                             </div>
                         </div>
                     </div>
@@ -475,10 +429,6 @@
                             <div class="single-blog-txt">
                                 <h2><a href="#">New Release! IPhone 17 Pro Max</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-                                <p>
-                                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-                                </p>
                             </div>
                         </div>
 
@@ -492,10 +442,6 @@
                             <div class="single-blog-txt">
                                 <h2><a href="#">New Tech New Year</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-                                <p>
-                                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -508,10 +454,6 @@
                             <div class="single-blog-txt">
                                 <h2><a href="#">AI on Every Tech</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-                                <p>
-                                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-                                </p>
                             </div>
                         </div>
                     </div>
