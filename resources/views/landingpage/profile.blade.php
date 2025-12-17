@@ -63,7 +63,7 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/#new-arrivals">Product</a></li>
                             <li class="active"><a href="{{ route('profile.index') }}">Profile</a></li>
-                            <li><a href="/transaction">Transaction</a></li>
+                            <li><a href="{{ route('transactions.index') }}">Transaction</a></li>
                         </ul>
                     </div>
                 </div>

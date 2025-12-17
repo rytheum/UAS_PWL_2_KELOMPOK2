@@ -270,7 +270,7 @@
                                 <li class="scroll"><a href="#feature">features</a></li>
                                 <li class="scroll"><a href="#blog">Blog</a></li>
                                 <li class="scroll"><a href="#newsletter">contact</a></li>
-                                <li class="transaction"><a href="/transaction">Transaction</a>
+                                <li class="transaction"><a href="{{ route('transactions.index') }}">Transaction</a>
                                 </li>
                             </ul><!--/.nav -->
                         </div><!-- /.navbar-collapse -->

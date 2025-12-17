@@ -24,7 +24,7 @@
 
     <p>
         <strong>Status Pembayaran</strong><br>
-        {{ $transaction->paymentStatus->status_name ?? '-' }}
+        Selesai
     </p>
 
     <p>
