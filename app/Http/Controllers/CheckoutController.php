@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Pmethod;
@@ -22,6 +23,6 @@ class CheckoutController extends Controller
             'qty',
             'subtotal',
             'paymentMethods'
-        ));
+        ))->with('userAddress', auth()->user()->address ?? '');
     }
 }

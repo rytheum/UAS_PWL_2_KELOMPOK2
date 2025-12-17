@@ -100,16 +100,32 @@
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="qty" value="{{ $qty }}">
+        <input type="hidden" name="total" value="{{ $subtotal }}">
 
         <!-- SHIPPING ADDRESS -->
         <div class="section">
             <label><strong>Shipping Address</strong></label>
             <textarea
+                id="shipping_address"
                 name="shipping_address"
                 rows="4"
                 placeholder="Masukkan alamat lengkap pengiriman"
-                required
-            ></textarea>
+                required>
+            </textarea>
+            <button
+                type="button"
+                onclick="fillDefaultAddress()"
+                style="
+                    margin-top:10px;
+                    background:#3498db;
+                    padding:8px 15px;
+                    border:none;
+                    color:white;
+                    border-radius:8px;
+                    cursor:pointer;
+                    font-size:13px;">
+                📍 My Default Location
+            </button>
         </div>
 
         <!-- PAYMENT METHOD (DUMMY DULU) -->
@@ -138,6 +154,20 @@
         </div>    
     </form>
 </div>
+
+<script>
+    function fillDefaultAddress() {
+        const defaultAddress = @json($userAddress);
+
+        if (!defaultAddress) {
+            alert('Kamu belum menyimpan alamat default di profile.');
+            return;
+        }
+
+        document.getElementById('shipping_address').value = defaultAddress;
+    }
+</script>
+
 
 </body>
 </html>
