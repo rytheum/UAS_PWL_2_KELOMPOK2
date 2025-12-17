@@ -23,7 +23,7 @@ class Product extends Model
     {
         $sql = $this->select(
             "products.*",
-            "product_categories.product_categories_name as product_categories_name",
+            "product_categories.category_name as product_categories_name",
         )
             ->leftjoin('product_categories', 'product_categories.id', '=', 'products.product_category_id');
         return $sql;
@@ -63,5 +63,10 @@ class Product extends Model
         } else {
             return "tidak ada data yang diupdate";
         }
+    }
+
+    public function category()
+    {
+    return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 }

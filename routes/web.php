@@ -2,25 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Customer\HomeController;
 
 /*
 |--------------------------------------------------------------------------
 | Landing Page
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index'])->name('landing');
 
-    if (auth()->check() && auth()->user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-    }
-
-    return view('landingpage.index');
-
-})->name('landing');
 
 /*
 |--------------------------------------------------------------------------
@@ -61,10 +56,7 @@ Route::middleware('auth')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', function () {
-            abort_if(auth()->user()->role !== 'admin', 403);
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);

@@ -9,25 +9,25 @@
   <section class="cards">
     <div class="card">
       <small>Categories</small>
-      <h2>3 Cat</h2>
+      <h2>{{ $totalCategories }} Cat</h2>
       <a href="{{ route('admin.categories.index') }}">Kelola Categories</a>
     </div>
 
     <div class="card">
       <small>Product</small>
-      <h2>4 Item</h2>
+      <h2>{{ $totalProducts }} Pcs</h2>
       <a href="{{ route('admin.products.index') }}">Kelola Product</a>
     </div>
 
     <div class="card">
       <small>Transaction</small>
-      <h2>5 Trx</h2>
+      <h2>{{ $totalTransactions }}  Trx</h2>
       <a href="{{ route('admin.transactions.index') }}">Kelola Transaction</a>
     </div>
 
     <div class="card">
       <small>Admin</small>
-      <h2>5 People</h2>
+      <h2>{{  $totalUsers }} Usr</h2>
       <a href="{{ route('admin.user.index') }}">Kelola User</a>
     </div>
   </section>
@@ -35,10 +35,12 @@
   {{-- BOTTOM --}}
   <section class="bottom">
     <div class="box">
-      <img src="/images/products.png" alt="Products">
+      <h3>Statistik Produk</h3>
+      <canvas id="productChart"></canvas> 
     </div>
     <div class="box">
-      <img src="/images/finance.png" alt="Finance">
+      <h3>Laporan Keuangan</h3>
+      <canvas id="financeChart"></canvas>
     </div>
   </section>
 

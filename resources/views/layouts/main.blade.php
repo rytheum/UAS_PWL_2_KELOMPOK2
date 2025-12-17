@@ -61,13 +61,14 @@
         .content {
             flex: 1;
             padding: 30px;
-            color: #fff;
+            color: #000000ff;
         }
 
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: #fff;
             margin-bottom: 30px;
         }
 
@@ -82,10 +83,12 @@
             color: #333;
             padding: 20px;
             border-radius: 20px;
-        }
 
-        .card small {
-            color: #777;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.25);
+
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .card a {
@@ -95,6 +98,12 @@
             color: #4a5bdc;
             text-decoration: none;
         }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
 
         .bottom {
             margin-top: 30px;
@@ -107,6 +116,8 @@
             background: #fff;
             border-radius: 25px;
             padding: 20px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         img {
@@ -154,14 +165,14 @@
         </a>
 
         {{-- Link Logout (tetap) --}}
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" class="form-logout">
             @csrf
-            <button style="background:none;border:none;padding:0;width:100%;">
-                <a style="cursor:pointer">
-                    <i class="fa fa-sign-out-alt"></i> Logout
-                </a>
+            <button type="submit"
+                style="background:none;border:none;padding:12px;width:100%;cursor:pointer;text-align:left;">
+                <i class="fa fa-sign-out-alt"></i> Logout
             </button>
         </form>
+
     </div>
 </aside>
 
@@ -177,6 +188,84 @@
 
     </div>
 
-</body>
+{{-- ===== SWEETALERT ===== --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '{{ session('error') }}'
+    });
+</script>
+@endif
+
+{{-- ===== CONFIRM DELETE (DITAMBAHKAN) ===== --}}
+<script>
+document.querySelectorAll('.form-delete').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = form.querySelector('button').dataset.name;
+
+        Swal.fire({
+            title: 'Confirm Delete?',
+            html: `<strong>${name}</strong> akan dihapus`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#5a67f2',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+{{-- ===== END CONFIRM DELETE ===== --}}
+
+{{-- ===== CONFIRM LOGOUT ===== --}}
+<script>
+document.querySelectorAll('.form-logout').forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Kamu akan keluar dari akun ini',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#5a67f2',
+            cancelButtonColor: '#dc3545',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+{{-- ===== END CONFIRM LOGOUT ===== --}}
+
+</body>
 </html>
