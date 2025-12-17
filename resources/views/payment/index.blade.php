@@ -68,12 +68,6 @@
             width: 100%;
         }
 
-        label {
-            font-weight: 600;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-
         /* ===== Buttons ===== */
         .btn {
             padding: 12px 28px;
@@ -84,17 +78,6 @@
             font-size: 15px;
             font-weight: 600;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-back {
-            background: #e74c3c;
-        }
-
-        .btn-back:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
         }
 
         .btn-confirm {
@@ -104,13 +87,6 @@
         .btn-confirm:hover {
             background: #1e8449;
             transform: translateY(-2px);
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .container {
-                margin: 40px 15px;
-            }
         }
     </style>
 </head>
@@ -139,8 +115,12 @@
         <form action="{{ route('payment.process') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <input type="file" name="payment_proof" required>
+            <!-- WAJIB: kirim id payment method -->
+            <input type="hidden" name="id_method" value="{{ $paymentMethod->id_method }}">
 
+            <input type="file" name="payment_proof" required>
+            <input type="hidden" name="product_id" value="{{ $product_id }}">
+            <input type="hidden" name="qty" value="{{ $qty }}">
             <br><br>
 
             <button type="submit" class="btn btn-confirm">
