@@ -5,56 +5,87 @@
     <title>Payment</title>
 
     <style>
+        /* ===== Reset & Base ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f6fa;
+            color: #333;
         }
 
-        .container {
-            width: 700px;
-            margin: 60px auto;
-        }
-
-        .box {
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
+        h2, h3 {
+            color: #2c3e50;
         }
 
         h2 {
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        /* ===== Box Styles ===== */
+        .box {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
 
         .rekening {
             background: #f9f9f9;
-            padding: 18px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
         }
 
         .rekening p {
-            margin: 8px 0;
+            margin: 10px 0;
             font-size: 16px;
         }
 
         input[type="file"] {
             margin-top: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
         }
 
-        .action {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: inline-block;
         }
 
+        /* ===== Buttons ===== */
         .btn {
-            padding: 12px 30px;
+            padding: 12px 28px;
             border-radius: 10px;
             border: none;
             cursor: pointer;
             color: #fff;
-            text-decoration: none;
             font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-back {
@@ -63,14 +94,23 @@
 
         .btn-back:hover {
             background: #c0392b;
+            transform: translateY(-2px);
         }
 
         .btn-confirm {
-            background: #6bd26b;
+            background: #27ae60;
         }
 
         .btn-confirm:hover {
-            background: #58b958;
+            background: #1e8449;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .container {
+                margin: 40px 15px;
+            }
         }
     </style>
 </head>
@@ -99,14 +139,6 @@
         <form action="{{ route('payment.process') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <label><strong>Payment Method</strong></label>
-            <p>
-                {{ $paymentMethod->method_name }} - 1234567890 a.n PT E-Commerce Indonesia
-            </p>
-
-            <br>
-
-            <label><strong>Upload Bukti Pembayaran</strong></label><br>
             <input type="file" name="payment_proof" required>
 
             <br><br>
