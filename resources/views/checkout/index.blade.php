@@ -75,24 +75,27 @@
 <div class="container">
     <h2>Checkout Detail</h2>
 
+@foreach($cartItems as $item)
     <div class="item">
-        <img src="{{ asset('storage/images/' . $product->image) }}">
+        <img src="{{ asset('storage/images/' . $item->product->image) }}">
 
         <div style="flex:1">
-            <h3>{{ $product->title }}</h3>
-            <p>Quantity : <strong>{{ $qty }}</strong></p>
+            <h3>{{ $item->product->title }}</h3>
+            <p>Quantity : <strong>{{ $item->quantity }}</strong></p>
         </div>
 
         <div>
             <p>Price</p>
-            <strong>Rp{{ number_format($product->price,0,',','.') }}</strong>
+            <strong>Rp {{ number_format($product->price,0,',','.') }}</strong>
         </div>
     </div>
+@endforeach
+
 
     <div class="summary">
         <p>Total Items : <strong>{{ $qty }}</strong></p>
         <p>Total Price :
-            <strong>Rp{{ number_format($subtotal,0,',','.') }}</strong>
+            <strong>Rp {{ number_format($subtotal,0,',','.') }}</strong>
         </p>
     </div>
 
