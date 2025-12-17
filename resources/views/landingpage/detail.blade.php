@@ -104,7 +104,15 @@
 
 
             <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <button class="btn checkout">CheckOut</button>
+
+                <form action="{{ route('checkout.instant') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="qty" id="qtyInput" value="1">
+
+                    <button type="submit" class="btn checkout">CheckOut</button>
+                </form>
+
                 <button class="btn cart">Add To Cart</button>
                 <a href="{{ route('landing') }}" class="btn back">Back</a>
             </div>
@@ -115,21 +123,24 @@
     const minus = document.getElementById('minus');
     const plus = document.getElementById('plus');
     const quantity = document.getElementById('quantity');
+    const qtyInput = document.getElementById('qtyInput');
 
     let count = 1;
-    const stock = {{ $product->stock }}; // ambil stock dari backend
+    const stock = {{ $product->stock }};
 
     minus.addEventListener('click', () => {
-        if(count > 1) { // minimal 1
+        if(count > 1){
             count--;
             quantity.textContent = count;
+            qtyInput.value = count; // 🔥 PENTING
         }
     });
 
     plus.addEventListener('click', () => {
-        if(count < stock) { // maksimal stok
+        if(count < stock){
             count++;
             quantity.textContent = count;
+            qtyInput.value = count; // 🔥 PENTING
         }
     });
 </script>
