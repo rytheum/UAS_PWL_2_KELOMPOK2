@@ -7,21 +7,23 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Customer\HomeController;
 
 /*
 |--------------------------------------------------------------------------
 | Landing Page
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index'])->name('landing');
+/*
+|--------------------------------------------------------------------------
+| Product Detail (Landing Page)
+|--------------------------------------------------------------------------
+*/
+Route::get('/product/{product}', [HomeController::class, 'detail'])
+    ->name('product.detail');
 
-    if (auth()->check() && auth()->user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-    }
-
-    return view('landingpage.index');
-
-})->name('landing');
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +69,7 @@ Route::middleware('auth')
         // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);
         Route::resource('products', ProductController::class);
+
         Route::resource('categories', ProductCategoryController::class);
         Route::resource('transactions', TransactionController::class);
     });
