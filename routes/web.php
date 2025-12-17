@@ -8,6 +8,9 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\CheckoutController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,11 @@ Route::get('/', [HomeController::class, 'index'])->name('landing');
 */
 Route::get('/product/{product}', [HomeController::class, 'detail'])
     ->name('product.detail');
+
+
+Route::post('/checkout', [CheckoutController::class, 'index'])->name('checkout.instant');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
 
     
 
