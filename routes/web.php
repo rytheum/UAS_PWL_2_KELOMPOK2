@@ -9,6 +9,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
+
 
 
 
@@ -29,6 +31,12 @@ Route::get('/product/{product}', [HomeController::class, 'detail'])
 
 Route::post('/checkout', [CheckoutController::class, 'index'])->name('checkout.instant');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+Route::post('/payment', [PaymentController::class, 'index'])
+    ->name('payment.index');
+Route::post('/payment/process', [PaymentController::class, 'process'])
+    ->name('payment.process');
+
 
 
     

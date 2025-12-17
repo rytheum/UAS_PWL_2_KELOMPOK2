@@ -84,7 +84,7 @@
             <div class="price-stock">
                 <div>
                     <span class="label">Price:</span>
-                    <h2>Rp {{ number_format($product->price, 0, ',', '.') }}</h2>
+                    <h2>Rp{{ number_format($product->price, 0, ',', '.') }}</h2>
                 </div>
                 <div>
                     <span class="label">Stock</span>

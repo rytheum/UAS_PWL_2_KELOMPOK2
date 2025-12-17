@@ -85,18 +85,18 @@
 
         <div>
             <p>Price</p>
-            <strong>Rp {{ number_format($product->price,0,',','.') }}</strong>
+            <strong>Rp{{ number_format($product->price,0,',','.') }}</strong>
         </div>
     </div>
 
     <div class="summary">
         <p>Total Items : <strong>{{ $qty }}</strong></p>
         <p>Total Price :
-            <strong>Rp {{ number_format($subtotal,0,',','.') }}</strong>
+            <strong>Rp{{ number_format($subtotal,0,',','.') }}</strong>
         </p>
     </div>
 
-    <form action="{{ route('checkout.process') }}" method="POST">
+    <form action="{{ route('payment.index') }}" method="POST">
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="qty" value="{{ $qty }}">
