@@ -64,10 +64,10 @@
     <!--welcome-hero start -->
     <header id="home" class="welcome-hero">
 
-        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel"  data-interval="3000">
     <!-- Carousel indicators -->
     <ol class="carousel-indicators">
-        @foreach($products as $key => $product)
+        @foreach($products->take(3) as $key => $product)
             <li data-target="#header-carousel" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}">
                 <span class="small-circle"></span>
             </li>
@@ -75,8 +75,8 @@
     </ol>
 
     <!-- Carousel slides -->
-    <div class="carousel-inner" role="listbox">
-        @foreach($products as $key => $product)
+<div class="carousel-inner" role="listbox">
+    @foreach($products->take(3) as $key => $product)
         <div class="item {{ $key == 0 ? 'active' : '' }}">
             <div class="single-slide-item slide{{ $key + 1 }}">
                 <div class="container">
@@ -88,19 +88,21 @@
                                         <h4>New Product</h4>
                                         <h2>{{ $product->title }}</h2>
                                         <p>{{ Str::limit($product->description ?? 'No description', 150) }}</p>
+
                                         <div class="packages-price">
                                             <p>
                                                 Rp{{ number_format($product->price, 2) }}
                                                 @if($product->original_price)
-                                                <del>Rp{{ number_format($product->original_price, 2) }}</del>
+                                                    <del>Rp{{ number_format($product->original_price, 2) }}</del>
                                                 @endif
                                             </p>
                                         </div>
-                                        <button class="btn-cart welcome-add-cart"
-                                            onclick="window.location.href='#'">
+
+                                        <button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
                                             <span class="lnr lnr-plus-circle"></span>
                                             add <span>to</span> cart
                                         </button>
+
                                         <button class="btn-cart welcome-add-cart welcome-more-info"
                                             onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
                                             more info
@@ -108,20 +110,24 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-sm-5">
                                 <div class="single-welcome-hero">
                                     <div class="welcome-hero-img">
-                                        <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}">
+                                        <img src="{{ asset('storage/images/' . $product->image) }}"
+                                            alt="{{ $product->title }}">
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @endforeach
-    </div>
+    @endforeach
+</div>
+
 </div>
 
 
@@ -654,6 +660,9 @@
 
 <!-- custom.js -->
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
