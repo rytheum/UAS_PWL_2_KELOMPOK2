@@ -104,6 +104,7 @@
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="qty" value="{{ $qty }}">
         <input type="hidden" name="total" value="{{ $subtotal }}">
+        <input type="hidden" name="id_method" value="">
 
         <!-- SHIPPING ADDRESS -->
         <div class="section">

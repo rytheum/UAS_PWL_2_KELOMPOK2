@@ -14,9 +14,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Landing Page
@@ -39,6 +36,10 @@ Route::post('/payment', [PaymentController::class, 'index'])
     ->name('payment.index');
 Route::post('/payment/process', [PaymentController::class, 'process'])
     ->name('payment.process');
+
+// web.php
+Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process');
+Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction.detail');
 
 
 
@@ -63,6 +64,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])
         ->name('register.process');
 });
+
+// Di dalam middleware auth
+
+
 
 // Di dalam middleware auth
 Route::middleware('auth')->group(function () {
