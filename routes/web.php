@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionController;
@@ -55,10 +56,7 @@ Route::middleware('auth')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', function () {
-            abort_if(auth()->user()->role !== 'admin', 403);
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);
