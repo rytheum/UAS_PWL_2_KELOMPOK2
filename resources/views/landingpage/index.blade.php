@@ -427,11 +427,11 @@
                     <div class="col-sm-4">
                         <div class="single-blog">
                             <div class="single-blog-img">
-                                <img src="assets/images/blog/b1.jpg" alt="blog image">
+                                <img src="assets/images/blog/b1.png" alt="blog image">
                                 <div class="single-blog-img-overlay"></div>
                             </div>
                             <div class="single-blog-txt">
-                                <h2><a href="#">Why Brands are Looking at Local Language</a></h2>
+                                <h2><a href="#">New Release! IPhone 17 Pro Max</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
                                 <p>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
@@ -444,11 +444,11 @@
                     <div class="col-sm-4">
                         <div class="single-blog">
                             <div class="single-blog-img">
-                                <img src="assets/images/blog/b2.jpg" alt="blog image">
+                                <img src="assets/images/blog/b2.png" alt="blog image">
                                 <div class="single-blog-img-overlay"></div>
                             </div>
                             <div class="single-blog-txt">
-                                <h2><a href="#">Why Brands are Looking at Local Language</a></h2>
+                                <h2><a href="#">New Tech New Year</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
                                 <p>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
@@ -460,11 +460,11 @@
                     <div class="col-sm-4">
                         <div class="single-blog">
                             <div class="single-blog-img">
-                                <img src="assets/images/blog/b3.jpg" alt="blog image">
+                                <img src="assets/images/blog/b3.png" alt="blog image">
                                 <div class="single-blog-img-overlay"></div>
                             </div>
                             <div class="single-blog-txt">
-                                <h2><a href="#">Why Brands are Looking at Local Language</a></h2>
+                                <h2><a href="#">AI on Every Tech</a></h2>
                                 <h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
                                 <p>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia

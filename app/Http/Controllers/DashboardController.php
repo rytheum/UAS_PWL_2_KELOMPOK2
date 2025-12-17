@@ -2,63 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// Import semua model yang dibutuhkan
+use App\Models\User;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        // Pastikan hanya admin yang bisa masuk
+        abort_if(auth()->user()->role !== 'admin', 403);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Hitung jumlah data
+        $totalCategories = ProductCategory::count();
+        $totalProducts = Product::count();
+        $totalTransactions = Transaction::count();
+        $totalUsers = User::count();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $stats = DB::table('product_categories')
+        ->leftJoin('products', 'product_categories.id', '=', 'products.product_category_id')
+        ->select('product_categories.category_name', DB::raw('count(products.id) as total'))
+        ->groupBy('product_categories.id', 'product_categories.category_name')
+        ->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $chartLabels = $stats->pluck('category_name')->toArray();
+        $chartData = $stats->pluck('total')->toArray();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Kirim data ke view menggunakan compact()
+        return view('admin.dashboard', compact(
+            'totalCategories', 
+            'totalProducts', 
+            'totalTransactions', 
+            'totalUsers',
+            'chartData',
+            'chartLabels',
+        ));
     }
 }
