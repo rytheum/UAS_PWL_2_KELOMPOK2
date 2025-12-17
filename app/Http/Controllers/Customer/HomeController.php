@@ -20,4 +20,9 @@ class HomeController extends Controller
 
         return view('landingpage.index', compact('products'));
     }
+
+    public function detail(Product $product)
+    {
+        return view('landingpage.detail', compact('product'));
+    }
 }

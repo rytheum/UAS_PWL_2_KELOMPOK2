@@ -78,7 +78,7 @@
     <div class="carousel-inner" role="listbox">
         @foreach($products as $key => $product)
         <div class="item {{ $key == 0 ? 'active' : '' }}">
-            <div class="single-slide-item slide{{ $key+1 }}">
+            <div class="single-slide-item slide{{ $key + 1 }}">
                 <div class="container">
                     <div class="welcome-hero-content">
                         <div class="row">
@@ -243,109 +243,41 @@
     </header><!--/.welcome-hero-->
     <!--welcome-hero end -->
 
-    <!--populer-products start -->
-    <section id="populer-products" class="populer-products">
-        <div class="container">
-            <div class="populer-products-content">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="single-populer-products">
-                            <div class="single-populer-product-img mt40">
-                                <img src="assets/images/populer-products/p1.png" alt="populer-products images">
-                            </div>
-                            <h2><a href="#">arm chair</a></h2>
-                            <div class="single-populer-products-para">
-                                <p>Nemo enim ipsam voluptatem quia volu ptas sit asperna aut odit aut fugit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="single-populer-products">
-                            <div class="single-inner-populer-products">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="single-inner-populer-product-img">
-                                            <img src="assets/images/populer-products/p2.png"
-                                                alt="populer-products images">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <div class="single-inner-populer-product-txt">
-                                            <h2>
-                                                <a href="#">
-                                                    latest designed stool <span>and</span> chair
-                                                </a>
-                                            </h2>
-                                            <p>
-                                                Edi ut perspiciatis unde omnis iste natusina error sit voluptatem
-                                                accusantium doloret mque laudantium, totam rem aperiam.
-                                            </p>
-                                            <div class="populer-products-price">
-                                                <h4>Sales Start from <span>$99.00</span></h4>
-                                            </div>
-                                            <button class="btn-cart welcome-add-cart populer-products-btn"
-                                                onclick="window.location.href='#'">
-                                                discover more
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="single-populer-products">
-                            <div class="single-populer-products">
-                                <div class="single-populer-product-img">
-                                    <img src="assets/images/populer-products/p3.png" alt="populer-products images">
-                                </div>
-                                <h2><a href="#">hanging lamp</a></h2>
-                                <div class="single-populer-products-para">
-                                    <p>Nemo enim ipsam voluptatem quia volu ptas sit asperna aut odit aut fugit.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--/.container-->
-
-    </section><!--/.populer-products-->
-    <!--populer-products end-->
+    
 
 <section id="new-arrivals" class="new-arrivals">
     <div class="container">
         <div class="section-header">
-            <h2>new arrivals</h2>
+            <h2>All Products</h2>
         </div>
         <div class="new-arrivals-content">
             <div class="row">
                 @forelse ($products as $product)
-                <div class="col-md-3 col-sm-4">
-                    <div class="single-new-arrival">
-                        <div class="single-new-arrival-bg">
-                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}">
-                            <div class="single-new-arrival-bg-overlay"></div>
-                            @if($product->sale ?? false)
-                            <div class="sale bg-1">
-                                <p>sale</p>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="single-new-arrival">
+                            <div class="single-new-arrival-bg">
+                                <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}">
+                                <div class="single-new-arrival-bg-overlay"></div>
+                                @if($product->sale ?? false)
+                                <div class="sale bg-1">
+                                    <p>sale</p>
+                                </div>
+                                @endif
+                                <div class="new-arrival-cart">
+                                    <p>
+                                        <span class="lnr lnr-cart"></span>
+                                        <a href="#">add <span>to </span> cart</a>
+                                    </p>
+                                    <p class="arrival-review pull-right">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="lnr lnr-frame-expand"></span>
+                                    </p>
+                                </div>
                             </div>
-                            @endif
-                            <div class="new-arrival-cart">
-                                <p>
-                                    <span class="lnr lnr-cart"></span>
-                                    <a href="#">add <span>to </span> cart</a>
-                                </p>
-                                <p class="arrival-review pull-right">
-                                    <span class="lnr lnr-heart"></span>
-                                    <span class="lnr lnr-frame-expand"></span>
-                                </p>
-                            </div>
+                            <h4><a href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a></h4>
+                            <p class="arrival-product-price">Rp{{ number_format($product->price, 2) }}</p>
                         </div>
-                        <h4><a href="#">{{ $product->title }}</a></h4>
-                        <p class="arrival-product-price">Rp{{ number_format($product->price, 2) }}</p>
                     </div>
-                </div>
                 @empty
                 <p>Belum ada produk</p>
                 @endforelse
