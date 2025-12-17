@@ -218,7 +218,7 @@
                                     <a href="/auth"><span class="lnr lnr-enter-down"></span></a>
                                 </li>
                                 <li class="nav-user">
-                                    <a href="#"><span class="lnr lnr-user"></span></a>
+                                    <a href="{{ route('profile.index') }}"><span class="lnr lnr-user"></span></a>
                                 </li>
                             </ul>
                         </div><!--/.attr-nav-->
