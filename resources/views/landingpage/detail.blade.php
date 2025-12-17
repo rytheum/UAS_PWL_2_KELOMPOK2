@@ -97,10 +97,11 @@
 
             <span class="label">Amount:</span>
             <div class="qty">
-                <span>-</span>
-                <span>1</span>
-                <span>+</span>
+                <span id="minus" style="cursor:pointer;">-</span>
+                <span id="quantity">1</span>
+                <span id="plus" style="cursor:pointer;">+</span>
             </div>
+
 
             <div style="margin-top: 30px; display: flex; gap: 15px;">
                 <button class="btn checkout">CheckOut</button>
@@ -109,6 +110,30 @@
             </div>
         </div>
     </div>
+
+<script>
+    const minus = document.getElementById('minus');
+    const plus = document.getElementById('plus');
+    const quantity = document.getElementById('quantity');
+
+    let count = 1;
+    const stock = {{ $product->stock }}; // ambil stock dari backend
+
+    minus.addEventListener('click', () => {
+        if(count > 1) { // minimal 1
+            count--;
+            quantity.textContent = count;
+        }
+    });
+
+    plus.addEventListener('click', () => {
+        if(count < stock) { // maksimal stok
+            count++;
+            quantity.textContent = count;
+        }
+    });
+</script>
+
 
 </body>
 
