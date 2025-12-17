@@ -76,7 +76,7 @@
 
 {{-- STATUS --}}
 <div class="form-group">
-    <label class="form-label">Status</label>
+    <label class="form-label">Status Pembayaran</label>
     <select name="id_payment_status" class="form-select" required>
         <option value="1">Belum Dibayar</option>
         <option value="2">Diproses</option>

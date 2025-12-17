@@ -43,14 +43,14 @@
 
                         <td>
                             @php
-                                $statusText = match ($transaction->id_order_status) {
+                                $statusText = match ($transaction->id_payment_status) {
                                     1 => 'Belum Dibayar',
                                     2 => 'Diproses',
                                     3 => 'Selesai',
                                     default => 'Unknown'
                                 };
 
-                                $statusColor = match ($transaction->id_order_status) {
+                                $statusColor = match ($transaction->id_payment_status) {
                                     1 => '#f1c40f',
                                     2 => '#3498db',
                                     3 => '#2ecc71',
