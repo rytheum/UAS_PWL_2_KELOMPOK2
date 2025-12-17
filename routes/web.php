@@ -15,7 +15,15 @@ use App\Http\Controllers\Customer\HomeController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('landing');
+/*
+|--------------------------------------------------------------------------
+| Product Detail (Landing Page)
+|--------------------------------------------------------------------------
+*/
+Route::get('/product/{product}', [HomeController::class, 'detail'])
+    ->name('product.detail');
 
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +69,7 @@ Route::middleware('auth')
         // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);
         Route::resource('products', ProductController::class);
+
         Route::resource('categories', ProductCategoryController::class);
         Route::resource('transactions', TransactionController::class);
     });
