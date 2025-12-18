@@ -19,6 +19,36 @@ class Product extends Model
         'stock'
     ];
 
+    /**
+     * Cek ketersediaan stock
+     */
+    public function isAvailable($quantity)
+    {
+        return $this->stock >= $quantity;
+    }
+
+    /**
+     * Kurangi stock dengan validasi
+     */
+    public function reduceStock($quantity)
+    {
+        if ($this->stock < $quantity) {
+            throw new \Exception('Stock tidak mencukupi. Stock tersedia: ' . $this->stock);
+        }
+        
+        $this->stock -= $quantity;
+        return $this->save();
+    }
+
+    /**
+     * Tambah stock
+     */
+    public function addStock($quantity)
+    {
+        $this->stock += $quantity;
+        return $this->save();
+    }
+
     public function get_product()
     {
         $sql = $this->select(

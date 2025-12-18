@@ -73,6 +73,23 @@
 <body>
 
 <div class="container">
+    @if ($errors->any())
+        <div style="background: #ffebee; color: #c62828; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ef9a9a;">
+            <strong style="display: block; margin-bottom: 10px;">⚠️ Terjadi Kesalahan:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div style="background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #a5d6a7;">
+            ✅ {{ session('success') }}
+        </div>
+    @endif
+    
     <h2>Checkout Detail</h2>
 
     <div class="item">
@@ -95,6 +112,16 @@
             <strong>Rp{{ number_format($subtotal,0,',','.') }}</strong>
         </p>
     </div>
+
+    @if ($errors->any())
+        <div style="background: #ffebee; color: #c62828; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('payment.index') }}" method="POST">
         @csrf

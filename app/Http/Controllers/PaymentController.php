@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Mail\TransactionSuccessMail;
 use App\Models\Pmethod;
 use App\Models\Transaction;
@@ -34,43 +35,65 @@ class PaymentController extends Controller
             'qty' => 'required|integer|min:1'
         ]);
 
-        // 1️⃣ Simpan bukti pembayaran
-        $request->file('payment_proof')
-                ->store('payment_proofs', 'public');
+        DB::beginTransaction();
+        
+        try {
+            // 1️⃣ Simpan bukti pembayaran
+            $paymentProofPath = $request->file('payment_proof')
+                    ->store('payment_proofs', 'public');
 
-        // 2️⃣ Ambil produk
-        $product = Product::findOrFail($request->product_id);
+            // 2️⃣ Ambil produk dengan LOCK untuk update (hindari race condition)
+            $product = Product::lockForUpdate()->findOrFail($request->product_id);
+            
+            // 🔥 VALIDASI ULANG STOCK: Cek stock sebelum transaksi
+            if ($product->stock < $request->qty) {
+                throw new \Exception('Maaf, stock produk tidak mencukupi. Stock tersedia: ' . $product->stock);
+            }
 
-        // 3️⃣ Simpan transaksi
-        $transaction = Transaction::create([
-            'id_user' => Auth::id(),
-            'id_method' => $request->id_method,
-            'transaction_time' => now(),
-            'id_payment_status' => 1,
-            'id_order_status' => 1
-        ]);
+            // 3️⃣ Kurangi stock produk
+            $product->decrement('stock', $request->qty);
 
-        // 4️⃣ Simpan detail transaksi
-        DetailTransaction::create([
-            'transaction_id' => $transaction->id_transaction,
-            'product_id' => $product->id,
-            'items_amount' => $request->qty,
-            'total_price' => $product->price * $request->qty
-        ]);
+            // 4️⃣ Simpan transaksi
+            $transaction = Transaction::create([
+                'id_user' => Auth::id(),
+                'id_method' => $request->id_method,
+                'transaction_time' => now(),
+                'id_payment_status' => 1, // Menunggu konfirmasi
+                'id_order_status' => 1    // Pending
+            ]);
 
-        $transaction->load([
-            'details.product',
-            'paymentMethod',
-            'paymentStatus',
-            'user'
-        ]);
+            // 5️⃣ Simpan detail transaksi
+            DetailTransaction::create([
+                'transaction_id' => $transaction->id_transaction,
+                'product_id' => $product->id,
+                'items_amount' => $request->qty,
+                'total_price' => $product->price * $request->qty
+            ]);
 
-        // 🔔 5️⃣ KIRIM EMAIL NOTIFIKASI
-        Mail::to(Auth::user()->email)
-            ->send(new TransactionSuccessMail($transaction));
+            DB::commit();
 
-        // 6️⃣ Redirect ke detail transaksi (customer)
-        return redirect()
-            ->route('transactions.show', $transaction->id_transaction);
+            $transaction->load([
+                'details.product',
+                'paymentMethod',
+                'paymentStatus',
+                'user'
+            ]);
+
+            // 🔔 6️⃣ KIRIM EMAIL NOTIFIKASI
+            Mail::to(Auth::user()->email)
+                ->send(new TransactionSuccessMail($transaction));
+
+            // 7️⃣ Redirect ke detail transaksi (customer)
+            return redirect()
+                ->route('transactions.show', $transaction->id_transaction)
+                ->with('success', 'Pembayaran berhasil! Stock produk telah diperbarui.');
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return back()->withErrors([
+                'error' => 'Transaksi gagal: ' . $e->getMessage()
+            ])->withInput();
+        }
     }
 }

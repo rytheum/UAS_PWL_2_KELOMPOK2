@@ -15,6 +15,13 @@ class CheckoutController extends Controller
         $qty = $request->qty;
         $subtotal = $product->price * $qty;
 
+        // 🔥 VALIDASI STOCK: Cek apakah stock mencukupi
+        if ($product->stock < $qty) {
+            return back()->withErrors([
+                'stock' => 'Stock tidak mencukupi. Stock tersedia: ' . $product->stock
+            ]);
+        }
+
         // 🔥 ambil payment method dari DB
         $paymentMethods = Pmethod::all();
 

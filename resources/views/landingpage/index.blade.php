@@ -106,7 +106,7 @@
 
             <button type="submit" class="btn-cart welcome-add-cart">
                 <span class="lnr lnr-plus-circle"></span>
-                Add<span>to</span> cart
+                Add<span> to</span> cart
             </button>
         </form>
 
@@ -400,7 +400,7 @@
                                     <span class="spacial-feature-icon"><i class="fa fa-star"></i></span>
                                     <span class="feature-review">(45 review)</span>
                                 </p>
-                                <h3><a href="#">VIVO V60r\</a></h3>
+                                <h3><a href="#">VIVO V60</a></h3>
                                 <h5>Rp8.000.000,00</h5>
                             </div>
                         </div>
