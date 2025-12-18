@@ -72,80 +72,90 @@
 
 <body>
 
-    <div class="container">
-        <div class="image-box">
-            <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}">
+<div class="container">
+    <div class="image-box">
+        <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}">
+    </div>
+
+    <div>
+        <span class="label">Product Name:</span>
+        <h1>{{ $product->title }}</h1>
+
+        <div class="price-stock">
+            <div>
+                <span class="label">Price:</span>
+                <h2>Rp{{ number_format($product->price, 0, ',', '.') }}</h2>
+            </div>
+            <div>
+                <span class="label">Stock</span>
+                <h2>{{ $product->stock }}</h2>
+            </div>
         </div>
 
-        <div>
-            <span class="label">Product Name:</span>
-            <h1>{{ $product->title }}</h1>
+        <span class="label">Description:</span>
+        <p>{{ $product->description }}</p>
 
-            <div class="price-stock">
-                <div>
-                    <span class="label">Price:</span>
-                    <h2>Rp{{ number_format($product->price, 0, ',', '.') }}</h2>
-                </div>
-                <div>
-                    <span class="label">Stock</span>
-                    <h2>{{ $product->stock }}</h2>
-                </div>
-            </div>
+        <span class="label">Amount:</span>
+        <div class="qty">
+            <span id="minus" style="cursor:pointer;">-</span>
+            <span id="quantity">1</span>
+            <span id="plus" style="cursor:pointer;">+</span>
+        </div>
 
-            <span class="label">Description:</span>
-            <p>{{ $product->description }}</p>
+        <div style="margin-top: 30px; display: flex; gap: 15px;">
 
-            <span class="label">Amount:</span>
-            <div class="qty">
-                <span id="minus" style="cursor:pointer;">-</span>
-                <span id="quantity">1</span>
-                <span id="plus" style="cursor:pointer;">+</span>
-            </div>
+            {{-- ✅ INSTANT CHECKOUT --}}
+            <form action="{{ route('checkout.instant') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="qty" id="qtyCheckout" value="1">
+                <button type="submit" class="btn checkout">CheckOut</button>
+            </form>
 
+            {{-- ✅ ADD TO CART --}}
+            <form action="{{ route('cart.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="qty" id="qtyCart" value="1">
+                <button type="submit" class="btn cart">Add To Cart</button>
+            </form>
 
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-
-                <form action="{{ route('checkout.instant') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="hidden" name="qty" id="qtyInput" value="1">
-
-                    <button type="submit" class="btn checkout">CheckOut</button>
-                </form>
-
-                <button class="btn cart">Add To Cart</button>
-                <a href="{{ route('landing') }}" class="btn back">Back</a>
-            </div>
+            <a href="{{ route('landing') }}" class="btn back">Back</a>
         </div>
     </div>
+</div>
 
 <script>
     const minus = document.getElementById('minus');
     const plus = document.getElementById('plus');
     const quantity = document.getElementById('quantity');
-    const qtyInput = document.getElementById('qtyInput');
+
+    const qtyCheckout = document.getElementById('qtyCheckout');
+    const qtyCart = document.getElementById('qtyCart');
 
     let count = 1;
     const stock = {{ $product->stock }};
 
+    function updateQty() {
+        quantity.textContent = count;
+        qtyCheckout.value = count;
+        qtyCart.value = count;
+    }
+
     minus.addEventListener('click', () => {
-        if(count > 1){
+        if (count > 1) {
             count--;
-            quantity.textContent = count;
-            qtyInput.value = count; // 🔥 PENTING
+            updateQty();
         }
     });
 
     plus.addEventListener('click', () => {
-        if(count < stock){
+        if (count < stock) {
             count++;
-            quantity.textContent = count;
-            qtyInput.value = count; // 🔥 PENTING
+            updateQty();
         }
     });
 </script>
 
-
 </body>
-
 </html>

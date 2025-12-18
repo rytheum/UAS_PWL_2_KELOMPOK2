@@ -113,20 +113,33 @@
         <h3>Upload Payment Proof</h3>
 
         <form action="{{ route('payment.process') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+    @csrf
 
-            <!-- WAJIB: kirim id payment method -->
-            <input type="hidden" name="id_method" value="{{ $paymentMethod->id_method }}">
+    <input type="hidden" name="id_method" value="{{ $paymentMethod->id_method }}">
+    <input type="hidden" name="type" value="{{ request('type') }}">
 
-            <input type="file" name="payment_proof" required>
-            <input type="hidden" name="product_id" value="{{ $product_id }}">
-            <input type="hidden" name="qty" value="{{ $qty }}">
-            <br><br>
+    {{-- INSTANT --}}
+    @if(request('type') === 'instant')
+        <input type="hidden" name="product_id" value="{{ $product_id }}">
+        <input type="hidden" name="qty" value="{{ $qty }}">
+    @endif
 
-            <button type="submit" class="btn btn-confirm">
-                Confirm Payment
-            </button>
-        </form>
+    {{-- CART --}}
+    @if(request('type') === 'cart')
+        <input type="hidden" name="total" value="{{ $total }}">
+        @foreach(request('cart_ids', []) as $cartId)
+            <input type="hidden" name="cart_ids[]" value="{{ $cartId }}">
+        @endforeach
+    @endif
+
+    <input type="file" name="payment_proof" required>
+
+    <br><br>
+    <button type="submit" class="btn btn-confirm">
+        Confirm Payment
+    </button>
+</form>
+
     </div>
 
 </div>

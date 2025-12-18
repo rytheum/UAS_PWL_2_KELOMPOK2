@@ -89,9 +89,38 @@
             ✅ {{ session('success') }}
         </div>
     @endif
-    
+
     <h2>Checkout Detail</h2>
 
+{{-- ================= CART CHECKOUT ================= --}}
+@if(isset($items))
+    @foreach($items as $item)
+        <div class="item">
+            <img src="{{ asset('storage/images/' . $item->product->image) }}">
+
+            <div style="flex:1">
+                <h3>{{ $item->product->title }}</h3>
+                <p>Quantity : <strong>{{ $item->quantity }}</strong></p>
+            </div>
+
+            <div>
+                <p>Price</p>
+                <strong>
+                    Rp{{ number_format($item->subtotal,0,',','.') }}
+                </strong>
+            </div>
+        </div>
+    @endforeach
+
+    <div class="summary">
+        <p>Total Items : <strong>{{ $totalQty }}</strong></p>
+        <p>Total Price :
+            <strong>Rp{{ number_format($totalPrice,0,',','.') }}</strong>
+        </p>
+    </div>
+
+{{-- ================= INSTANT CHECKOUT ================= --}}
+@elseif(isset($product))
     <div class="item">
         <img src="{{ asset('storage/images/' . $product->image) }}">
 
@@ -102,7 +131,9 @@
 
         <div>
             <p>Price</p>
-            <strong>Rp{{ number_format($product->price,0,',','.') }}</strong>
+            <strong>
+                Rp{{ number_format($subtotal,0,',','.') }}
+            </strong>
         </div>
     </div>
 
@@ -112,23 +143,29 @@
             <strong>Rp{{ number_format($subtotal,0,',','.') }}</strong>
         </p>
     </div>
+@endif
 
-    @if ($errors->any())
-        <div style="background: #ffebee; color: #c62828; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <ul style="margin: 0; padding-left: 20px;">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-    <form action="{{ route('payment.index') }}" method="POST">
-        @csrf
+   <form action="{{ route('payment.index') }}" method="POST">
+    @csrf
+
+    {{-- INSTANT CHECKOUT --}}
+    @isset($product)
+        <input type="hidden" name="type" value="instant">
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="qty" value="{{ $qty }}">
         <input type="hidden" name="total" value="{{ $subtotal }}">
-        <input type="hidden" name="id_method" value="">
+    @endisset
+
+    {{-- CART CHECKOUT --}}
+    @isset($items)
+        <input type="hidden" name="type" value="cart">
+        <input type="hidden" name="total" value="{{ $totalPrice }}">
+
+        @foreach($items as $item)
+            <input type="hidden" name="cart_ids[]" value="{{ $item->cart_id }}">
+        @endforeach
+    @endisset
 
         <!-- SHIPPING ADDRESS -->
         <div class="section">
@@ -171,10 +208,9 @@
         </div>
 
         <br>
-        <div class="action">
-            <a href="{{ url()->previous() }}" class="btn-back">
-                ← Back
-            </a>
+        <a href="{{ route('cart') }}" class="btn-back">
+            ← Back
+        </a>
 
             <button type="submit" class="btn-confirm">
                 Confirm Checkout
