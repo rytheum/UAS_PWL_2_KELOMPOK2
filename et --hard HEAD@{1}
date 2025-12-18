@@ -1,0 +1,59 @@
+[33m3292bd0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msteven[m[33m)[m HEAD@{0}: commit (merge): Merge branch 'Jose' of https://github.com/rytheum/UAS_PWL_2_KELOMPOK2 into steven
+[33ma1d068f[m HEAD@{1}: reset: moving to HEAD
+[33ma1d068f[m HEAD@{2}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m221a303[m[33m ([m[1;31morigin/steven[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33m221a303[m[33m ([m[1;31morigin/steven[m[33m)[m HEAD@{4}: commit: Payment update
+[33m6aa8a3b[m HEAD@{5}: reset: moving to HEAD
+[33m6aa8a3b[m HEAD@{6}: commit: Default location di checkout dan total di payment
+[33m48f4724[m HEAD@{7}: pull origin Adit: Merge made by the 'ort' strategy.
+[33mdd35939[m HEAD@{8}: commit: make payment page
+[33m7475ea4[m HEAD@{9}: pull origin Jose: Merge made by the 'ort' strategy.
+[33m0c68466[m HEAD@{10}: pull origin Jose: Merge made by the 'ort' strategy.
+[33mb569cf0[m HEAD@{11}: commit: Make checkout page
+[33mae0fba5[m HEAD@{12}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m7e7f2a6[m HEAD@{13}: commit: Tombol plus minus di detail
+[33m451b625[m HEAD@{14}: pull origin Jose: Merge made by the 'ort' strategy.
+[33m9195476[m HEAD@{15}: commit: blog landing page
+[33mf73f9ea[m HEAD@{16}: pull origin Adit: Merge made by the 'ort' strategy.
+[33mc6c8bd1[m HEAD@{17}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m69a4b61[m HEAD@{18}: commit: Slider Landingpage
+[33m8762496[m HEAD@{19}: commit: Product di landingpage
+[33mc900cd8[m HEAD@{20}: reset: moving to HEAD
+[33mc900cd8[m HEAD@{21}: pull origin Adit: Fast-forward
+[33m59b447d[m HEAD@{22}: reset: moving to HEAD
+[33m59b447d[m HEAD@{23}: pull origin Adit: Fast-forward
+[33m8bb7132[m HEAD@{24}: commit: Transaksi tambah
+[33m54dc3e8[m HEAD@{25}: pull origin Jose: Merge made by the 'ort' strategy.
+[33m862e2f8[m HEAD@{26}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m85685c8[m HEAD@{27}: commit: Update icon
+[33m6ae3ac8[m HEAD@{28}: commit: sweetalert
+[33mfab1b20[m HEAD@{29}: pull origin Adit: Merge made by the 'ort' strategy.
+[33mba39693[m HEAD@{30}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m01db0a9[m HEAD@{31}: commit (merge): test conflict
+[33m2ee9171[m HEAD@{32}: reset: moving to HEAD
+[33m2ee9171[m HEAD@{33}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m7273e0f[m HEAD@{34}: commit: Icon di Categories
+[33m0423f8d[m HEAD@{35}: commit: Update delete product
+[33m3ea9c0e[m HEAD@{36}: pull origin Adit: Merge made by the 'ort' strategy.
+[33m299efcf[m HEAD@{37}: pull origin Adit: Merge made by the 'ort' strategy.
+[33mb3999df[m HEAD@{38}: commit: Sweet alert perbaikan
+[33m74f7f30[m HEAD@{39}: pull origin Jose: Fast-forward
+[33m6a19cf4[m HEAD@{40}: commit: sweet alert untuk logout
+[33m7af8aec[m HEAD@{41}: commit: sweet alert
+[33mf2bf8b9[m HEAD@{42}: pull origin Jose: Merge made by the 'ort' strategy.
+[33m02ffc39[m HEAD@{43}: pull origin main: Merge made by the 'ort' strategy.
+[33m0c5602c[m HEAD@{44}: pull origin Jose: Merge made by the 'ort' strategy.
+[33m2396be5[m HEAD@{45}: commit: index di products dan update dashboard
+[33m1d98506[m HEAD@{46}: checkout: moving from main to steven
+[33m0c822d6[m[33m ([m[1;32mmain[m[33m)[m HEAD@{47}: reset: moving to HEAD~1
+[33mb57c1aa[m HEAD@{48}: commit: index di products dan update dashboard
+[33m0c822d6[m[33m ([m[1;32mmain[m[33m)[m HEAD@{49}: pull origin Jose: Fast-forward
+[33m644ec71[m HEAD@{50}: reset: moving to HEAD~1
+[33me67bec7[m HEAD@{51}: checkout: moving from steven to main
+[33m1d98506[m HEAD@{52}: checkout: moving from main to steven
+[33me67bec7[m HEAD@{53}: commit: Image clients di landingpage customer
+[33m644ec71[m HEAD@{54}: pull origin Jose: Fast-forward
+[33m1d98506[m HEAD@{55}: pull origin main: Fast-forward
+[33m9c15217[m HEAD@{56}: pull origin main: Fast-forward
+[33me2fe997[m HEAD@{57}: pull origin main: Fast-forward
+[33m1cf4fdb[m HEAD@{58}: clone: from https://github.com/rytheum/UAS_PWL_2_KELOMPOK2.git

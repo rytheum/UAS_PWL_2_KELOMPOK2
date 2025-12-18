@@ -98,16 +98,21 @@ class TransactionController extends Controller
      * Display the specified resource (optional API / detail).
      */
     public function show(string $id)
-{
-    $transaction = Transaction::with([
-        'user',
-        'paymentMethod',
-        'paymentStatus',
-        'details.product'
-    ])->where('id_transaction', $id)->firstOrFail();
+    {
+        $transaction = Transaction::with([
+            'user',
+            'paymentMethod',
+            'paymentStatus',
+            'details.product'
+        ])->where('id_transaction', $id)->firstOrFail();
 
-    return view('admin.transactions.show', compact('transaction'));
-}
+        // 🔥 BEDAKAN ADMIN & CUSTOMER
+        if (request()->routeIs('admin.*')) {
+            return view('admin.transactions.show', compact('transaction'));
+        }
+
+        return view('payment.show', compact('transaction'));
+    }
 
     
     public function edit(string $id)

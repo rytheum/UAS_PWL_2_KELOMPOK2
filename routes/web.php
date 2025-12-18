@@ -5,15 +5,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionController; // ADMIN
 use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProfileController;
+use App\Http\Controllers\Customer\TransactionController as CustomerTransactionController;
+
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
-
-
-
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\PaymentController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('landing');
+
 /*
 |--------------------------------------------------------------------------
 | Product Detail (Landing Page)
@@ -29,18 +31,22 @@ Route::get('/', [HomeController::class, 'index'])->name('landing');
 Route::get('/product/{product}', [HomeController::class, 'detail'])
     ->name('product.detail');
 
+/*
+|--------------------------------------------------------------------------
+| Checkout & Payment
+|--------------------------------------------------------------------------
+*/
+Route::post('/checkout', [CheckoutController::class, 'index'])
+    ->name('checkout.instant');
 
-Route::post('/checkout', [CheckoutController::class, 'index'])->name('checkout.instant');
-Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])
+    ->name('checkout.process');
 
 Route::post('/payment', [PaymentController::class, 'index'])
     ->name('payment.index');
+
 Route::post('/payment/process', [PaymentController::class, 'process'])
     ->name('payment.process');
-
-
-
-    
 
 /*
 |--------------------------------------------------------------------------
@@ -49,11 +55,11 @@ Route::post('/payment/process', [PaymentController::class, 'process'])
 */
 Route::middleware('guest')->group(function () {
 
-    Route::get('/auth', fn() => view('auth.auth'))->name('auth');
+    Route::get('/auth', fn () => view('auth.auth'))->name('auth');
 
     // Laravel butuh route bernama "login"
-    Route::get('/login', fn() => redirect()->route('auth'))->name('login');
-    Route::get('/register', fn() => redirect()->route('auth'))->name('register');
+    Route::get('/login', fn () => redirect()->route('auth'))->name('login');
+    Route::get('/register', fn () => redirect()->route('auth'))->name('register');
 
     Route::post('/login', [AuthController::class, 'login'])
         ->name('login.process');
@@ -62,10 +68,33 @@ Route::middleware('guest')->group(function () {
         ->name('register.process');
 });
 
-// Di dalam middleware auth
+/*
+|--------------------------------------------------------------------------
+| Customer Area (AUTH)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile.index');
+
+    Route::put('/profile/update', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // Cart
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update/{id_cart}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{id_cart}', [CartController::class, 'destroy'])->name('cart.delete');
+    Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+    // 🔥 CUSTOMER TRANSACTIONS
+    Route::get('/transactions', [CustomerTransactionController::class, 'index'])
+        ->name('transactions.index');
+
+    Route::get('/transactions/{id}', [CustomerTransactionController::class, 'show'])
+        ->name('transactions.show');
 });
 
 /*
@@ -87,12 +116,13 @@ Route::middleware('auth')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-        // 🔥 RESOURCE ROUTES (IMPORTANT)
         Route::resource('user', UserController::class);
         Route::resource('products', ProductController::class);
-
         Route::resource('categories', ProductCategoryController::class);
+
+        // 🔥 ADMIN TRANSACTIONS
         Route::resource('transactions', TransactionController::class);
     });

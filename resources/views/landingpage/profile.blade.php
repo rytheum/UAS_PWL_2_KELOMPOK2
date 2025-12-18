@@ -26,10 +26,10 @@
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
         .form-control-custom { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; }
-        .btn-save { background: #ff545a; color: white; padding: 12px 25px; border: none; border-radius: 4px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; }
-        .btn-save:hover { background: #e64a4f; }
+        .btn-save { background: #6074e1; color: white; padding: 12px 25px; border: none; border-radius: 4px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; }
+        .btn-save:hover { background: #001799ff; }
         .alert-success { background: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-bottom: 20px; border: none; }
-        .user-avatar { width: 70px; height: 70px; background: #ff545a; color: white; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
+        .user-avatar { width: 70px; height: 70px; background: #6074e1; color: white; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
     </style>
 </head>
 
@@ -63,7 +63,7 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/#new-arrivals">Product</a></li>
                             <li class="active"><a href="{{ route('profile.index') }}">Profile</a></li>
-                            <li><a href="/transaction">Transaction</a></li>
+                            <li><a href="{{ route('transactions.index') }}">Transaction</a></li>
                         </ul>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
                 <p class="text-muted" style="font-size: 13px; margin-bottom: 20px;">{{ $user->email }}</p>
                 <hr>
                 <ul class="nav nav-pills nav-stacked text-left">
-                    <li class="active"><a href="#" style="background: #ff545a; color: white;">👤 Edit Profil</a></li>
-                    <li><a href="/transaction" style="color: #666;">📦 Pesanan Saya</a></li>
+                    <li class="active"><a href="#" style="background: #6074e1; color: white;"> Edit Profil</a></li>
+                    <li><a href="/transaction" style="color: #666;"> Pesanan Saya</a></li>
                 </ul>
             </div>
 
