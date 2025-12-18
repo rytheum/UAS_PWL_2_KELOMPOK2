@@ -69,45 +69,58 @@
                             </span>
                         </td>
 
-                        <td>
+                        <td style="display:flex; gap:5px; align-items:center;">
                             {{-- VIEW --}}
                             <a href="{{ route('admin.transactions.show', $transaction->id_transaction) }}" style="
-                                       background:#0d6efd;
-                                       color:white;
-                                       padding:8px 10px;
-                                       border-radius:8px;
-                                       text-decoration:none;
-                                       margin-right:5px;
-                                   ">
+                                width:34px;
+                                height:34px;
+                                background:#0d6efd;
+                                color:white;
+                                border-radius:8px;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                text-decoration:none;
+                            ">
                                 <i class="fa fa-eye"></i>
                             </a>
 
                             {{-- EDIT --}}
                             <a href="{{ route('admin.transactions.edit', $transaction->id_transaction) }}" style="
-                                       background:#f1c40f;
-                                       color:white;
-                                       padding:8px 10px;
-                                       border-radius:8px;
-                                       text-decoration:none;
-                                       margin-right:5px;
-                                   ">
+                                width:34px;
+                                height:34px;
+                                background:#f1c40f;
+                                color:white;
+                                border-radius:8px;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                text-decoration:none;
+                            ">
                                 <i class="fa fa-pen"></i>
                             </a>
 
                             {{-- DELETE --}}
-                            <form action="{{ route('admin.transactions.destroy', $transaction->id_transaction) }}" method="POST"
-                                style="display:inline" onsubmit="return confirm('Yakin hapus transaksi ini?')">
+                            <form action="{{ route('admin.transactions.destroy', $transaction->id_transaction) }}"
+                                method="POST"
+                                class="form-delete"
+                                data-name="Transaksi #{{ $transaction->id_transaction }}"
+                                style="margin:0;">
                                 @csrf
                                 @method('DELETE')
 
                                 <button type="submit" style="
-                                            background:#e74c3c;
-                                            color:white;
-                                            border:none;
-                                            padding:8px 10px;
-                                            border-radius:8px;
-                                            cursor:pointer;
-                                        ">
+                                    width:34px;
+                                    height:34px;
+                                    background:#e74c3c;
+                                    color:white;
+                                    border:none;
+                                    border-radius:8px;
+                                    cursor:pointer;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                ">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>

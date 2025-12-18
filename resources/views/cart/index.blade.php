@@ -129,106 +129,96 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        {{-- HEADER --}}
-        <div class="cart-header">
-            <div style="display:flex; align-items:center; gap:15px;">
-                <a href="{{ route('landing') }}" style="text-decoration:none; font-weight:bold; color:#e74c3c;">
-                    ← Back
-                </a>
-                <h2>Shopping Cart</h2>
-            </div>
-
-            <span>{{ $carts->sum('quantity') }} Items</span>
+    {{-- HEADER --}}
+    <div class="cart-header">
+        <div style="display:flex; align-items:center; gap:15px;">
+            <a href="{{ route('landing') }}"
+               style="text-decoration:none; font-weight:bold; color:#e74c3c;">
+                ← Back
+            </a>
+            <h2>Shopping Cart</h2>
         </div>
-
-        @if($carts->isEmpty())
-            <div class="empty-cart">
-                <p>Cart masih kosong</p>
-                <a href="{{ route('landing') }}">Belanja sekarang</a>
-            </div>
-        @else
-
-            {{-- FORM CHECKOUT --}}
-            <form action="" method="GET">
-
-                <div class="cart-table-header">
-                    <div>Product Details</div>
-                    <div>Quantity</div>
-                    <div>Price</div>
-                    <div>Total</div>
-                </div>
-
-                @foreach($carts as $cart)
-                    @php
-                        $subtotal = $cart->quantity * $cart->product->price;
-                    @endphp
-
-                    <div class="cart-item">
-
-                        {{-- PRODUCT --}}
-                        <div class="product">
-                            <img src="{{ asset('storage/images/' . $cart->product->image) }}">
-                            <div class="product-name">
-                                {{ $cart->product->name }}
-                            </div>
-                        </div>
-
-                        {{-- QUANTITY --}}
-                        <div>
-                            <div class="qty-box">
-                                <form method="POST" action="{{ route('cart.update', $cart->id_cart) }}">
-                                    @csrf
-                                    <input type="hidden" name="action" value="decrease">
-                                    <button type="submit">−</button>
-                                </form>
-
-                                <span>{{ $cart->quantity }}</span>
-
-                                <form method="POST" action="{{ route('cart.update', $cart->id_cart) }}">
-                                    @csrf
-                                    <input type="hidden" name="action" value="increase">
-                                    <button type="submit">+</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        {{-- PRICE --}}
-                        <div class="price">
-                            Rp {{ number_format($cart->product->price, 0, ',', '.') }}
-                        </div>
-
-                        {{-- TOTAL + CHECKBOX + DELETE (KANAN) --}}
-                        <div class="total">
-                            Rp {{ number_format($subtotal, 0, ',', '.') }}
-
-                            <div class="action-right">
-                                <input type="checkbox" name="cart_ids[]" value="{{ $cart->id_cart }}" checked>
-
-                                <form action="{{ route('cart.delete', $cart->id_cart) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="trash-btn">🗑</button>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                @endforeach
-
-                {{-- CHECKOUT --}}
-                <div class="checkout-wrapper">
-                    <button type="submit" class="checkout-btn">
-                        Checkout >
-                    </button>
-                </div>
-
-            </form>
-        @endif
-
+        <span>{{ $carts->sum('quantity') }} Items</span>
     </div>
 
-</body>
+    @if($carts->isEmpty())
+        <div class="empty-cart">
+            <p>Cart masih kosong</p>
+        </div>
+    @else
 
+    {{-- LIST CART --}}
+    @foreach($carts as $cart)
+        @php
+            $subtotal = $cart->quantity * $cart->product->price;
+        @endphp
+
+        <div class="cart-item">
+
+            {{-- PRODUCT --}}
+            <div class="product">
+                <img src="{{ asset('storage/images/' . $cart->product->image) }}">
+                <div class="product-name">
+                    {{ $cart->product->title }}
+                </div>
+            </div>
+
+            {{-- QUANTITY --}}
+            <div class="qty-box">
+
+                {{-- DECREASE --}}
+                <form method="POST"
+                      action="{{ route('cart.update', $cart->id_cart) }}">
+                    @csrf
+                    <input type="hidden" name="action" value="decrease">
+                    <button type="submit">−</button>
+                </form>
+
+                <span>{{ $cart->quantity }}</span>
+
+                {{-- INCREASE --}}
+                <form method="POST"
+                      action="{{ route('cart.update', $cart->id_cart) }}">
+                    @csrf
+                    <input type="hidden" name="action" value="increase">
+                    <button type="submit">+</button>
+                </form>
+
+            </div>
+
+            {{-- PRICE --}}
+            <div class="price">
+                Rp {{ number_format($cart->product->price, 0, ',', '.') }}
+            </div>
+
+            {{-- TOTAL + DELETE --}}
+            <div class="total">
+                Rp {{ number_format($subtotal, 0, ',', '.') }}
+
+                <form action="{{ route('cart.delete', $cart->id_cart) }}"
+                      method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="trash-btn">🗑</button>
+                </form>
+            </div>
+
+        </div>
+    @endforeach
+
+    {{-- CHECKOUT FORM (DIPISAH) --}}
+<div class="checkout-wrapper">
+    <a href="{{ route('cart.checkout') }}" class="checkout-btn">
+        Checkout →
+    </a>
+</div>
+
+
+    @endif
+
+</div>
+
+</body>
 </html>

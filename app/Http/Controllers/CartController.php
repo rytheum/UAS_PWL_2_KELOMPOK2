@@ -25,30 +25,31 @@ class CartController extends Controller
     /**
      * Add product ke cart
      */
-    public function add(Request $request)
-    {
-        $request->validate([
-            'product_id' => 'required|exists:products,id'
+   public function add(Request $request)
+{
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'qty' => 'required|integer|min:1'
+    ]);
+
+    $cart = Cart::where('id_user', auth()->id())
+        ->where('product_id', $request->product_id)
+        ->first();
+
+    if ($cart) {
+        $cart->quantity += $request->qty;
+        $cart->save();
+    } else {
+        Cart::create([
+            'id_user' => auth()->id(),
+            'product_id' => $request->product_id,
+            'quantity' => $request->qty
         ]);
-
-        $cart = Cart::where('id_user', auth()->id())
-            ->where('product_id', $request->product_id)
-            ->first();
-
-        if ($cart) {
-            // produk sudah ada → tambah qty
-            $cart->increment('quantity');
-        } else {
-            // produk belum ada
-            Cart::create([
-                'id_user' => auth()->id(),
-                'product_id' => $request->product_id,
-                'quantity' => 1
-            ]);
-        }
-
-        return redirect()->route('cart');
     }
+
+    return redirect()->route('cart');
+}
+
 
     /**
      * Update quantity (+ / -)
@@ -64,12 +65,14 @@ class CartController extends Controller
             ->firstOrFail();
 
         if ($request->action === 'increase') {
-            $cart->increment('quantity');
+            $cart->quantity += 1;
+            $cart->save();
         }
 
         if ($request->action === 'decrease') {
             if ($cart->quantity > 1) {
-                $cart->decrement('quantity');
+                $cart->quantity -= 1;
+                $cart->save();
             }
         }
 
@@ -92,6 +95,9 @@ class CartController extends Controller
      * Redirect ke checkout (MULTI PRODUCT)
      */
 
+    /**
+     * Redirect ke checkout dari cart
+     */
     public function checkout()
     {
         $cartItems = Cart::with('product')
@@ -102,18 +108,30 @@ class CartController extends Controller
             return redirect()->route('cart')->with('error', 'Cart masih kosong');
         }
 
-        $totalQty = $cartItems->sum('quantity');
-        $totalPrice = $cartItems->sum(function ($item) {
-            return $item->product->price * $item->quantity;
-        });
+        $items = collect();
+        foreach ($cartItems as $cart) {
+            $qty = min($cart->quantity, $cart->product->stock);
+            $items->push((object) [
+                'product' => $cart->product,
+                'quantity' => $qty,
+                'subtotal' => $cart->product->price * $qty,
+                'cart_id' => $cart->id_cart, // buat tracking saat proses checkout
+            ]);
+        }
+
+        $totalQty = $items->sum('quantity');
+        $totalPrice = $items->sum('subtotal');
 
         $paymentMethods = Pmethod::all();
+        $userAddress = auth()->user()->address ?? '';
 
         return view('checkout.index', compact(
-            'cartItems',
+            'items',
             'totalQty',
             'totalPrice',
-            'paymentMethods'
+            'paymentMethods',
+            'userAddress'
         ));
     }
+
 }
