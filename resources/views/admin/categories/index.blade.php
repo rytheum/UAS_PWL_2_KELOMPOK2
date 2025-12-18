@@ -53,7 +53,7 @@
                             <div style="display:flex;justify-content:center;gap:8px;">
 
                                 {{-- Show --}}
-                                <a href="{{ route('admin.categories.show', $category->id) }}" style="
+                                <a href="{{ route('admin.categories.show', $category) }}" style="
                                     width:34px;
                                     height:34px;
                                     background:#3498db;
@@ -68,7 +68,7 @@
                                 </a>
 
                                 {{-- Edit --}}
-                                <a href="{{ route('admin.categories.edit', $category->id) }}" style="
+                                <a href="{{ route('admin.categories.edit', $category) }}" style="
                                     width:34px;
                                     height:34px;
                                     background:#f1c40f;
@@ -83,7 +83,7 @@
                                 </a>
 
                                 {{-- Delete --}}
-                                <form action="{{ route('admin.categories.destroy', $category->id) }}"
+                                <form action="{{ route('admin.categories.destroy', $category) }}"
                                     method="POST"
                                     class="form-delete">
                                     @csrf
